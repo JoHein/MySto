@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div class="container">
+
+        <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#general">Général</a></li>
+        <li><a data-toggle="tab" data-target="#detail">Détail</a></li>
+        <li><a data-toggle="tab" data-target="#repartition">Répartition</a></li>
+    </ul>
+        <div class="tab-content">
+
+    <!-- tableau général d'édition-->
+            <table id="general" class="tab-pane fade in active">
+                <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Editer</th>
+                    <th>Publier</th>
+                    <th>Supprimer</th>
+                </tr>
+                <tr ng-repeat=""></tr>
+                </tbody>
+            </table>
+
+            <!--tableau détail ( nbetoile, nb text, nb vue)-->
+            <table id="detail" class="tab-pane fade">
+                <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Etoiles</th>
+                    <th>Vues</th>
+                    <th>Date</th>
+                </tr>
+                <tr ng-repeat=""></tr>
+                </tbody>
+            </table>
+            <!--graph repartition-->
+            <div id="repartition" class="tab-pane fade">
+                <p>Graph repartition</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
