@@ -1,14 +1,18 @@
 /**
  * Created by FoxPC on 1/21/2017.
  */
-var myModule = angular.module('myModule', []);
-myModule.factory('serviceId', function() {
-  var shinyNewServiceInstance;
 
+angular.module('myStoriesApp').factory('User', function($resource) {
 
   // Define CreditCard class
-  var CreditCard = $resource('/user/:userId/card/:cardId',
-    {userId:123, cardId:'@id'}, {
-      charge: {method:'POST', params:{charge:true}}
+  var User = $resource('/user/:id', {id:'@id'},
+    {
+
+      'query': {method:'get',isArray:false},
+      'save':{method:'post',isArray:false},
+      'update':{method:'update',isArray:false},
+      'remove':{method:'delete',isArray:false}
+
     });
+  return User;
 });

@@ -13,39 +13,40 @@
             <h3 class="panel-title">Inscrivez-vous pour écrire vos histoires</h3>
           </div>
           <div class="panel-body">
-            <form role="form">
+
+            <form role="form" name="rgtUser" ng-submit="registerUser()">
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="text" name="pseudo" id="pseudo" class="form-control input-sm" placeholder="Pseudo">
+                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" class="form-control input-sm" placeholder="Pseudo">
                   </div>
                 </div>
 
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="file" name="avatar " id="avatar" class="form-control input-sm" placeholder="avatar">
+                    <input type="file" name="avatar " ng-model="avatar" id="avatar" class="form-control input-sm" placeholder="avatar">
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
-                <input type="email" name="email" id="email1" class="form-control input-sm" placeholder="Email Adresse">
+                <input type="email" name="email1" ng-model="email1" id="email1" class="form-control input-sm" placeholder="Email Adresse">
               </div>
 
 
               <div class="form-group">
-                <input type="email" name="email" id="email2" class="form-control input-sm" placeholder="Confirmer Email Adresse">
+                <input type="email" name="email2" id="email2" ng-model="email2" class="form-control input-sm" placeholder="Confirmer Email Adresse">
               </div>
 
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Mot de passe">
+                    <input type="password" name="password" ng-model="password" id="password" class="form-control input-sm" placeholder="Mot de passe">
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password2" id="password2" class="form-control input-sm" placeholder="Confirmer Mot de Passe">
+                    <input type="password" name="password2" ng-model="password2" id="password2" class="form-control input-sm" placeholder="Confirmer Mot de Passe">
                   </div>
                 </div>
               </div>

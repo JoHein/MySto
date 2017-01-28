@@ -45,6 +45,18 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
+app.get('/user',function(req,res){
+
+  console.log("ici demarre le REQQQQQQQQQQQQQQQQQQQQQQQQQQQQ!!!!!!!!!!!!!!!!!!!!!!!!");
+
+  console.log(req);
+
+  console.log("ici demarre le RES!!!!!!!!!!!!!!!!!!!!!!!!");
+
+  console.log(res);
+
+  res.end();
+});
 
 
 /*var newUser = new User({
