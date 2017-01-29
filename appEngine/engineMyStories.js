@@ -12,6 +12,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
+
 //Connect to mongoDB
 //var mongoose = require('mongoose');
 //mongoose.connect('mongodb://localhost:27017/myproject');
@@ -24,7 +25,12 @@ app.set('view engine','ejs');
 app.set('views', '../appWeb/views');
 app.set('port', process.env.PORT||8081);
 
+app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.urlencoded({extended: false}));
+
+
+
+
 app.use(morgan('combined')); // Active le middleware de logging
 
 app.use(session({secret:"marcelproust",resave:false, saveUninitialized:true}));
@@ -45,17 +51,17 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.get('/user',function(req,res){
+app.post('/user',function(req,res){
 
   console.log("ici demarre le REQQQQQQQQQQQQQQQQQQQQQQQQQQQQ!!!!!!!!!!!!!!!!!!!!!!!!");
 
-  console.log(req);
+  console.log("ici demarre le REQQQQQQQQQQQQQQQQQQQQQQQQQQQQ!!!!!!!!!!!!!!!!!!!!!!!!");
 
-  console.log("ici demarre le RES!!!!!!!!!!!!!!!!!!!!!!!!");
 
-  console.log(res);
+  console.log(req.query);
+  console.log(req.body);
 
-  res.end();
+  res.send('Marcel did it!');
 });
 
 

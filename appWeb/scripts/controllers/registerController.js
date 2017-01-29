@@ -18,13 +18,13 @@ angular.module('myStoriesApp')
       $log.debug($scope.rgtUser.pseudo);
       $log.debug($scope.rgtUser.email1);
       $log.debug($scope.rgtUser.password);
+
       var user = new Object();
       user.username=$scope.rgtUser.pseudo.$viewValue;
       user.pasword=$scope.rgtUser.password.$viewValue;
       user.email=$scope.rgtUser.email1.$viewValue;
 
-            User.query(user);
-      User.query({'username':'patata'});
+      User.save(user);
 
     };
 
