@@ -20,6 +20,8 @@ var app = express();
 //require model User
 var User = require('./models/user');
 
+
+
 // config
 app.set('view engine','ejs');
 app.set('views', '../appWeb/views');

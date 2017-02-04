@@ -18,7 +18,7 @@
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" class="form-control input-sm" placeholder="Pseudo">
+                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" class="form-control input-sm" placeholder="Pseudo">
                   </div>
                 </div>
 
@@ -30,7 +30,7 @@
               </div>
 
               <div class="form-group">
-                <input type="email" name="email1" ng-model="email1" id="email1" class="form-control input-sm" placeholder="Email Adresse">
+                <input type="email" name="email1" ng-model="email1" id="email1" ng-class="{ 'has-error': rgtUser.email1.$invalid && rgtUser.email1.$dirty }" class="form-control input-sm" placeholder="Email Adresse">
               </div>
 
 
@@ -41,15 +41,22 @@
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password" ng-model="password" id="password" class="form-control input-sm" placeholder="Mot de passe">
+                    <input type="password" name="password" ng-model="password" id="password" ng-minlength="3" ng-maxlength="20" class="form-control input-sm" placeholder="Mot de passe"/>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password2" ng-model="password2" id="password2" class="form-control input-sm" placeholder="Confirmer Mot de Passe">
+                    <input type="password" name="password2" ng-model="password2" id="password2" ng-minlength="3" ng-maxlength="20" register-pwd-check="password" class="form-control input-sm" placeholder="Confirmer Mot de Passe"/>
+
+                    <div ng-messages="rgtUser.password2.$error">
+                      <div ng-message="pwderrormatch">Le mot de passe ne correspond pas</div>
+                    </div>
+
                   </div>
                 </div>
               </div>
+
+
 
               <div class="g-recaptcha" data-sitekey="6LeSHA0UAAAAABdIBfIgmveWjIBepUUu7d1D7G-H"></div>
 
