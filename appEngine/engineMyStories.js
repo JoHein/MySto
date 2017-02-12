@@ -14,8 +14,8 @@ var app = express();
 
 
 //Connect to mongoDB
-//var mongoose = require('mongoose');
-//mongoose.connect('mongodb://localhost:27017/myproject');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/myproject');
 
 //require model User
 var User = require('./models/user');
@@ -65,6 +65,22 @@ app.post('/user',function(req,res){
 
   res.send('Marcel did it!');
 });
+
+app.post('/checkDuplicateDB', function(req,res){
+  console.log("User no duplicate call");
+  console.log(req.body);
+  console.log(req.body.username);
+
+
+  User.findOne({ 'username': req.body.username }, 'username', function (err, person) {
+    if (err) return handleError(err);
+    console.log("Found", person);
+  });
+  res.send('Fin de check');
+});
+
+
+
 
 
 /*var newUser = new User({

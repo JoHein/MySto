@@ -22,37 +22,37 @@ angular.module('myStoriesApp')
       }
     }
   });
-/*angular.module('myStoriesApp')
-  .directive('checkDuplicateDB', [$http,function($http){
-    return{
-      require:'ngModel',
-      link:function(scope,element,attrs){
-        var validatorDB= attrs.checkDuplicateDB;
 
-        function setIsLoading(loading){
-          ngModel.$setValidity('isLoading',!loading);
-        }
-        function setIsAvailable(available){
-          ngModel.$setValidity('isAvailable', available);
-        }
+angular.module('myStoriesApp')
+  .directive('checkDuplicateDB', ['$http', function($http) {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
 
-        ngModel.$parsers.push(function(value) {
-          if (!value || value.length == 0)
-            return;
-          setIsLoading(true);
-          setIsAvailable(false);
-
-          $http.get(validatorDB, {
-            v: value
-          }).success(function() {
-            setIsLoading(false);
-            setIsAvailable(true);
-          }).error(function() {
-            setIsLoading(false);
-            setIsAvailable(false);
-          });
-          return value;
-        })
+      function setAsLoading(bool) {
+        ngModel.$setValidity('recordLoading', !bool);
       }
+
+      function setAsAvailable(bool) {
+        ngModel.$setValidity('recordAvailable', bool);
+      }
+      ngModel.$parsers.push(function(value) {
+        if (!value || value.length == 0) return;
+        setAsLoading(true);
+        setAsAvailable(false);
+
+        $http.post('/checkDuplicateDB', {'username': value})
+
+         .then(function(sucess){
+          setAsLoading(false);
+          setAsAvailable(true);
+        },function(error){
+          setAsLoading(false);
+          setAsAvailable(false);
+        });
+
+        return value;
+      })
     }
-}]);*/
+  }
+}]);

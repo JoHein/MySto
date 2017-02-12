@@ -31,8 +31,6 @@ angular.module('myStoriesApp')
         $window.alert("Le formulaire comporte des erreurs");
       }
 
-
-
     };
 
   });
