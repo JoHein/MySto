@@ -22,7 +22,7 @@ angular.module('myStoriesApp')
 
       if($scope.rgtUser.$valid){
         var user = new Object();
-        user.username=$scope.rgtUser.pseudo.$viewValue;
+        user.username=($scope.rgtUser.pseudo.$viewValue).toLowerCase();
         user.pasword=$scope.rgtUser.password.$viewValue;
         user.email=$scope.rgtUser.email1.$viewValue;
 

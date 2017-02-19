@@ -37,15 +37,20 @@ angular.module('myStoriesApp')
         ngModel.$setValidity('recordAvailable', bool);
       }
       ngModel.$parsers.push(function(value) {
-        if (!value || value.length == 0) return;
+        if (!value || value.length < 3 ) return;
         setAsLoading(true);
         setAsAvailable(false);
 
         $http.post('/checkDuplicateDB', {'username': value})
+         .then(function(success){
+           if(success.data){
+             setAsLoading(false);
+             setAsAvailable(true);
+           }else{
+             setAsLoading(false);
+             setAsAvailable(false);
+           }
 
-         .then(function(sucess){
-          setAsLoading(false);
-          setAsAvailable(true);
         },function(error){
           setAsLoading(false);
           setAsAvailable(false);

@@ -73,10 +73,17 @@ app.post('/checkDuplicateDB', function(req,res){
 
 
   User.findOne({ 'username': req.body.username }, 'username', function (err, person) {
-    if (err) return handleError(err);
-    console.log("Found", person);
+
+    if(person===null){
+      res.send(true);
+    }else{
+      res.send(false);
+    }
+
+    if(err){
+      return handleError(err);
+    }
   });
-  res.send('Fin de check');
 });
 
 
