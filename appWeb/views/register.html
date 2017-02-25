@@ -19,7 +19,13 @@
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" check-duplicate-d-b="pseudo" class="form-control input-sm" placeholder="Pseudo">
+                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" check-duplicate-d-b="pseudo" ng-model-options="{ debounce :  800, updateOn : 'blur' }" class="form-control input-sm" placeholder="Pseudo">
+                    <span ng-show="pseudoavailable">MARCEL </span>
+
+                    <div ng-if="rgtUser.pseudo.$dirty" ng-messages="rgtUser.pseudo.$error" class="my-messages" role="alert">
+                      <div ng-message="minlength">Pseudo trop court</div>
+                      <div ng-message="maxlength">Pseudo trop long</div>
+                    </div>
                   </div>
                 </div>
 
@@ -37,10 +43,9 @@
 
               <div class="form-group">
                 <input type="email" name="email2" id="email2" ng-model="email2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-same-directive="email1" class="form-control input-sm" placeholder="Confirmer Email Adresse">
-                <div class="my-messages" ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" role="alert">
+                <div ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" class="my-messages" role="alert">
                   <div ng-message="minlength">Email trop court</div>
                   <div ng-message="checkerrormatch">L'email ne correspond pas!</div>
-
                 </div>
               </div>
 

@@ -63,7 +63,7 @@ angular.module('myStoriesApp')
 }]);
 
 angular.module('myStoriesApp')
-  .directive('checkDuplicateDB', ['$http', function($http) {
+  .directive('checkDuplicateDBEmail', ['$http', function($http) {
     return {
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {

@@ -155,15 +155,19 @@ body {
   height: 1.6em;
   position: relative;
   z-index: 5;
-
 }
-
 
 .my-messages {
   color: #a94442;
-  background-color: #f2dede;
+  background-color: rgba(236, 197, 197, 0.71);
   border-color: #ebccd1;
   padding: 0.3em;
+  position: absolute;
+  z-index:5;
+}
+
+.my-messages.ng-inactive {
+  opacity: 0;
 }
 
 .my-messages.ng-enter, .my-messages.ng-leave {
