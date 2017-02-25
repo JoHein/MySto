@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('RegisterCtrl', function ( $scope,$location, $log, User, $window ) {
+  .controller('RegisterCtrl', function ( $scope,$location, $log, User, $window, Flash) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -12,7 +12,8 @@ angular.module('myStoriesApp')
       '$location',
       '$log',
       'User',
-      '$window'
+      '$window',
+      'Flash'
     ];
 
     $scope.registerUser=function(){
@@ -28,9 +29,12 @@ angular.module('myStoriesApp')
 
         User.save(user);
       }else{
-        $window.alert("Le formulaire comporte des erreurs");
+        var message = 'Le formulaire comporte des erreurs';
+        Flash.create('warning', message);
       }
 
     };
+
+
 
   });

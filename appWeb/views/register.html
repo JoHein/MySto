@@ -10,6 +10,7 @@
       <div class="col-xs-12 col-sm-8 col-md-5 col-sm-offset-2 col-md-offset-3">
         <div class="panel panel-default">
           <div class="panel-heading">
+            <flash-message></flash-message>
             <h3 class="panel-title">Inscrivez-vous pour écrire vos histoires</h3>
           </div>
           <div class="panel-body">
@@ -30,13 +31,13 @@
               </div>
 
               <div class="form-group">
-                <input type="email" name="email1" ng-model="email1"  ng-minlength="10" id="email1" ng-class="{ 'has-error': rgtUser.email1.$invalid && rgtUser.email1.$dirty }" class="form-control input-sm" placeholder="Email Adresse">
+                <input type="email" name="email1" ng-model="email1"  ng-minlength="10" id="email1" check-duplicate-d-b="email1" class="form-control input-sm" placeholder="Email Adresse">
               </div>
 
 
               <div class="form-group">
                 <input type="email" name="email2" id="email2" ng-model="email2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-same-directive="email1" class="form-control input-sm" placeholder="Confirmer Email Adresse">
-                <div ng-messages="rgtUser.email2.$error">
+                <div class="my-messages" ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" role="alert">
                   <div ng-message="minlength">Email trop court</div>
                   <div ng-message="checkerrormatch">L'email ne correspond pas!</div>
 
@@ -53,10 +54,10 @@
                   <div class="form-group">
                     <input type="password" name="password2" ng-model="password2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" id="password2" ng-minlength="4" ng-maxlength="20" check-same-directive="password" class="form-control input-sm" placeholder="Confirmer Mot de Passe"/>
 
-                    <div ng-if="rgtUser.password2.$dirty" ng-messages="rgtUser.password2.$error">
-                      <div ng-message="minlength">Mot de passe trop court</div>
-                      <div ng-message="maxlength">Mot de passe trop long</div>
-                      <div ng-message="checkerrormatch">Le mot de passe ne correspond pas</div>
+                    <div ng-messages="rgtUser.password2.$error" ng-if="rgtUser.password2.$dirty" class="my-messages" role="alert">
+                      <div ng-message="minlength" class="some-message" >Mot de passe trop court </div>
+                      <div ng-message="maxlength" class="some-message" >Mot de passe trop long</div>
+                      <div ng-message="checkerrormatch" class="some-message" >Le mot de passe ne correspond pas</div>
                     </div>
 
                   </div>

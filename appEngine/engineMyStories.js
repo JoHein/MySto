@@ -86,6 +86,26 @@ app.post('/checkDuplicateDB', function(req,res){
   });
 });
 
+app.post('/checkDuplicateDBEmail', function(req,res){
+  console.log("email no duplicate call");
+  console.log(req.body);
+  console.log(req.body.username);
+
+
+  User.findOne({ 'email': req.body.email }, 'email', function (err, person) {
+
+    if(person===null){
+      res.send(true);
+    }else{
+      res.send(false);
+    }
+
+    if(err){
+      return handleError(err);
+    }
+  });
+});
+
 
 
 

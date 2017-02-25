@@ -15,7 +15,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngMaterial',
-    'ngMessages'
+    'ngMessages',
+    'ngFlash',
+    'ngAnimate'
     ])
   .config(function ($routeProvider) {
     $routeProvider

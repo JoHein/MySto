@@ -30,11 +30,11 @@ angular.module('myStoriesApp')
     link: function(scope, element, attrs, ngModel) {
 
       function setAsLoading(bool) {
-        ngModel.$setValidity('recordLoading', !bool);
+        ngModel.$setValidity('pseudoLoading', !bool);
       }
 
       function setAsAvailable(bool) {
-        ngModel.$setValidity('recordAvailable', bool);
+        ngModel.$setValidity('pseudoAvailable', bool);
       }
       ngModel.$parsers.push(function(value) {
         if (!value || value.length < 3 ) return;
@@ -61,3 +61,42 @@ angular.module('myStoriesApp')
     }
   }
 }]);
+
+angular.module('myStoriesApp')
+  .directive('checkDuplicateDB', ['$http', function($http) {
+    return {
+      require: 'ngModel',
+      link: function(scope, element, attrs, ngModel) {
+
+        function setAsLoading(bool) {
+          ngModel.$setValidity('emailLoading', !bool);
+        }
+
+        function setAsAvailable(bool) {
+          ngModel.$setValidity('emailAvailable', bool);
+        }
+        ngModel.$parsers.push(function(value) {
+          if (!value || value.length < 3 ) return;
+          setAsLoading(true);
+          setAsAvailable(false);
+
+          $http.post('/checkDuplicateDBEmail', {'email': value})
+            .then(function(success){
+              if(success.data){
+                setAsLoading(false);
+                setAsAvailable(true);
+              }else{
+                setAsLoading(false);
+                setAsAvailable(false);
+              }
+
+            },function(error){
+              setAsLoading(false);
+              setAsAvailable(false);
+            });
+
+          return value;
+        })
+      }
+    }
+  }]);
