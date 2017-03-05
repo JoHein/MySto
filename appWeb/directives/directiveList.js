@@ -30,11 +30,11 @@ angular.module('myStoriesApp')
     link: function(scope, element, attrs, ngModel) {
 
       function setAsLoading(bool) {
-        ngModel.$setValidity('pseudoLoading', !bool);
+        ngModel.$setValidity('pseudo', !bool);
       }
 
       function setAsAvailable(bool) {
-        ngModel.$setValidity('pseudoAvailable', bool);
+        ngModel.$setValidity('pseudo', bool);
       }
       ngModel.$parsers.push(function(value) {
         if (!value || value.length < 3 ) return;
@@ -69,11 +69,11 @@ angular.module('myStoriesApp')
       link: function(scope, element, attrs, ngModel) {
 
         function setAsLoading(bool) {
-          ngModel.$setValidity('emailLoading', !bool);
+          ngModel.$setValidity('emailloading', !bool);
         }
 
         function setAsAvailable(bool) {
-          ngModel.$setValidity('emailAvailable', bool);
+          ngModel.$setValidity('emaildispo', bool);
         }
         ngModel.$parsers.push(function(value) {
           if (!value || value.length < 3 ) return;

@@ -43,7 +43,9 @@ angular
             templateUrl:'views/article.html',
             controller:'ArticleCtrl'
         })
+        
       .otherwise({
         redirectTo: '/'
       });
+
   });
