@@ -1,25 +1,66 @@
 {
-  "name": "angular-recaptcha",
-  "version": "4.0.4",
-  "description": "An AngularJS module to ease usage of reCaptcha inside a form",
-  "author": "VividCortex",
-  "license": "MIT",
-  "homepage": "https://github.com/vividcortex/angular-recaptcha",
+  "_args": [
+    [
+      {
+        "raw": "angular-recaptcha@^4.0.4",
+        "scope": null,
+        "escapedName": "angular-recaptcha",
+        "name": "angular-recaptcha",
+        "rawSpec": "^4.0.4",
+        "spec": ">=4.0.4 <5.0.0",
+        "type": "range"
+      },
+      "F:\\Logiciel\\Wamp\\www\\Mystories001\\MySto"
+    ]
+  ],
+  "_from": "angular-recaptcha@>=4.0.4 <5.0.0",
+  "_id": "angular-recaptcha@4.0.4",
+  "_inCache": true,
+  "_location": "/angular-recaptcha",
+  "_nodeVersion": "6.10.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/angular-recaptcha-4.0.4.tgz_1489765263656_0.43111683847382665"
+  },
+  "_npmUser": {
+    "name": "mtrias",
+    "email": "miguel.trias@gmail.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "angular-recaptcha@^4.0.4",
+    "scope": null,
+    "escapedName": "angular-recaptcha",
+    "name": "angular-recaptcha",
+    "rawSpec": "^4.0.4",
+    "spec": ">=4.0.4 <5.0.0",
+    "type": "range"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-recaptcha/-/angular-recaptcha-4.0.4.tgz",
+  "_shasum": "40fc34094f0e35a6f5c0b23439ed0533bca686d0",
+  "_shrinkwrap": null,
+  "_spec": "angular-recaptcha@^4.0.4",
+  "_where": "F:\\Logiciel\\Wamp\\www\\Mystories001\\MySto",
+  "author": {
+    "name": "VividCortex"
+  },
+  "bugs": {
+    "url": "https://github.com/vividcortex/angular-recaptcha/issues"
+  },
   "contributors": [
     {
-      "name" : "Eduardo Daniel Cuomo",
-      "email" : "reduardo7@gmail.com",
-      "url" : "https://github.com/reduardo7/angular-recaptcha"
+      "name": "Eduardo Daniel Cuomo",
+      "email": "reduardo7@gmail.com",
+      "url": "https://github.com/reduardo7/angular-recaptcha"
     }
   ],
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/vividcortex/angular-recaptcha.git"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
+  "dependencies": {},
+  "description": "An AngularJS module to ease usage of reCaptcha inside a form",
   "devDependencies": {
     "bower": "^1.8.0",
     "grunt": "^1.0.1",
@@ -39,5 +80,35 @@
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.2",
     "karma-safari-launcher": "^1.0.0"
-  }
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "40fc34094f0e35a6f5c0b23439ed0533bca686d0",
+    "tarball": "https://registry.npmjs.org/angular-recaptcha/-/angular-recaptcha-4.0.4.tgz"
+  },
+  "gitHead": "073aa4862b2ca465b9914817928974fa9c72cac4",
+  "homepage": "https://github.com/vividcortex/angular-recaptcha",
+  "license": "MIT",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "iambrosi",
+      "email": "ismael@vividcortex.com"
+    },
+    {
+      "name": "mtrias",
+      "email": "miguel.trias@gmail.com"
+    }
+  ],
+  "name": "angular-recaptcha",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vividcortex/angular-recaptcha.git"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "version": "4.0.4"
 }

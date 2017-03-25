@@ -11,7 +11,7 @@ angular.module('myStoriesApp')
 
         var firstpassword = '#' + attrs.checkSameDirective;
 
-        element.add(firstpassword).on('keyup',function () {
+        element.append(firstpassword).on('keyup',function () {
 
           scope.$apply(function () {
             var valid = element.val()===$(firstpassword).val();
@@ -34,14 +34,13 @@ angular.module('myStoriesApp')
       }
       ngModel.$parsers.push(function(value) {
         if (!value || value.length < 3 ) return;
-        setAsAvailable(false);
+        setAsAvailable(true);
 
         $http.post('/checkDuplicateDB', {'username': value})
          .then(function(success){
            if(success.data){
              setAsAvailable(true);
            }else{
-             setAsLoading(false);
              setAsAvailable(false);
            }
 
@@ -49,7 +48,7 @@ angular.module('myStoriesApp')
           setAsAvailable(false);
         });
 
-        return value;
+          return value;
       });
     }
   };
@@ -66,7 +65,7 @@ angular.module('myStoriesApp')
         }
         ngModel.$parsers.push(function(value) {
           if (!value || value.length < 3 ) return;
-          setAsAvailable(false);
+        setAsAvailable(true);
 
           $http.post('/checkDuplicateDBEmail', {'email': value})
             .then(function(success){

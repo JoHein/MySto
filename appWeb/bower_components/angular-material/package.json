@@ -2,18 +2,18 @@
   "_args": [
     [
       {
-        "raw": "angular-material",
+        "raw": "angular-material@^1.1.3",
         "scope": null,
         "escapedName": "angular-material",
         "name": "angular-material",
-        "rawSpec": "",
-        "spec": "latest",
-        "type": "tag"
+        "rawSpec": "^1.1.3",
+        "spec": ">=1.1.3 <2.0.0",
+        "type": "range"
       },
-      "F:\\Logiciel\\Wamp\\www\\Mystories001"
+      "F:\\Logiciel\\Wamp\\www\\Mystories001\\MySto"
     ]
   ],
-  "_from": "angular-material@latest",
+  "_from": "angular-material@>=1.1.3 <2.0.0",
   "_id": "angular-material@1.1.3",
   "_inCache": true,
   "_location": "/angular-material",
@@ -29,13 +29,13 @@
   "_npmVersion": "3.10.6",
   "_phantomChildren": {},
   "_requested": {
-    "raw": "angular-material",
+    "raw": "angular-material@^1.1.3",
     "scope": null,
     "escapedName": "angular-material",
     "name": "angular-material",
-    "rawSpec": "",
-    "spec": "latest",
-    "type": "tag"
+    "rawSpec": "^1.1.3",
+    "spec": ">=1.1.3 <2.0.0",
+    "type": "range"
   },
   "_requiredBy": [
     "#USER",
@@ -44,8 +44,8 @@
   "_resolved": "https://registry.npmjs.org/angular-material/-/angular-material-1.1.3.tgz",
   "_shasum": "b466d53aaa42c1555766a1ded53a28baeb7b2fe6",
   "_shrinkwrap": null,
-  "_spec": "angular-material",
-  "_where": "F:\\Logiciel\\Wamp\\www\\Mystories001",
+  "_spec": "angular-material@^1.1.3",
+  "_where": "F:\\Logiciel\\Wamp\\www\\Mystories001\\MySto",
   "bugs": {
     "url": "https://github.com/angular/material/issues"
   },

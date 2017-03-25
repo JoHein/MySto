@@ -164,6 +164,7 @@ body {
   padding: 0.3em;
   position: absolute;
   z-index:5;
+
 }
 
 .my-messages.ng-inactive {
@@ -171,14 +172,12 @@ body {
 }
 
 .my-messages.ng-active {
-    
-}
+      opacity:1;
 
-.my-messages.ng-change {
-      opacity:0;
-}
+                        }
 
 .my-messages.ng-enter, .my-messages.ng-leave {
+  
 }
 
 .my-messages.ng-enter,
