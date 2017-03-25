@@ -17,7 +17,8 @@ angular
     'ngMaterial',
     'ngMessages',
     'ngFlash',
-    'ngAnimate'
+    'ngAnimate',
+    'vcRecaptcha'
     ])
   .config(function ($routeProvider) {
     $routeProvider

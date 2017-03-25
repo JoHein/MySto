@@ -1,0 +1,8 @@
+{
+    "elements": {},
+    "attributes": {
+        "vc-recaptcha": {
+            "context": "div"
+        }
+    }
+}

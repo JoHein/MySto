@@ -1,8 +1,9 @@
 //require express framework
 var express = require('express');
-var session =require('express-session');
+var session = require('express-session');
 var http = require('http');
 var path = require('path');
+var request = require('request');
 
 //Logger
 var morgan = require('morgan');
@@ -23,11 +24,11 @@ var User = require('./models/user');
 
 
 // config
-app.set('view engine','ejs');
+app.set('view engine', 'ejs');
 app.set('views', '../appWeb/views');
-app.set('port', process.env.PORT||8081);
+app.set('port', process.env.PORT || 8081);
 
-app.use(bodyParser.json({ type: 'application/json' }));
+app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParser.urlencoded({extended: false}));
 
 
@@ -35,10 +36,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(morgan('combined')); // Active le middleware de logging
 
-app.use(session({secret:"marcelproust",resave:false, saveUninitialized:true}));
+app.use(session({secret: "marcelproust", resave: false, saveUninitialized: true}));
 
 app.use(express.static('../appWeb')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
-app.use('/partials',express.static('../appWeb/views/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
+app.use('/partials', express.static('../appWeb/views/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
 logger.info('server start');
 
@@ -53,57 +54,76 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
-app.post('/user',function(req,res){
+//Enregistrement base de donnée
+app.post('/user', function (req, res) {
 
-  console.log("ici demarre le REQQQQQQQQQQQQQQQQQQQQQQQQQQQQ!!!!!!!!!!!!!!!!!!!!!!!!");
-
-  console.log("ici demarre le REQQQQQQQQQQQQQQQQQQQQQQQQQQQQ!!!!!!!!!!!!!!!!!!!!!!!!");
+    var secretKey = "6LeSHA0UAAAAAAAA_Dk0Lb4glW0co98viewVLrz_";
 
 
-  console.log(req.query);
-  console.log(req.body);
+//    if (req.body['recaptchaResponse'] === undefined || req.body['recaptchaResponse'] === '' || req.body['recaptchaResponse'] === null) {
+//        return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
+//    }
 
-  res.send('Marcel did it!');
+    var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret="
+            + secretKey + "&response=" + req.body['recaptchaResponse']
+            + "&remoteip=" + req.connection.remoteAddress;
+
+    request(verificationUrl, function (error, response, body) {
+        body = JSON.parse(body);
+
+        if (body.success !== undefined && !body.success) {
+            return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
+        }
+        res.json({"responseCode": 0, "responseDesc": "Sucess"});
+    });
+
+
+    console.log(req.body['recaptchaResponse']);
+
+
+    console.log(req.query);
+    console.log(req.body);
+
+//    res.send('Marcel did it!');
 });
 
-app.post('/checkDuplicateDB', function(req,res){
-  console.log("User no duplicate call");
-  console.log(req.body);
-  console.log(req.body.username);
+app.post('/checkDuplicateDB', function (req, res) {
+    console.log("User no duplicate call");
+    console.log(req.body);
+    console.log(req.body.username);
 
 
-  User.findOne({ 'username': req.body.username }, 'username', function (err, person) {
+    User.findOne({'username': req.body.username}, 'username', function (err, person) {
 
-    if(person===null){
-      res.send(true);
-    }else{
-      res.send(false);
-    }
+        if (person === null) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
 
-    if(err){
-      return handleError(err);
-    }
-  });
+        if (err) {
+            return handleError(err);
+        }
+    });
 });
 
-app.post('/checkDuplicateDBEmail', function(req,res){
-  console.log("email no duplicate call");
-  console.log(req.body);
-  console.log(req.body.username);
+app.post('/checkDuplicateDBEmail', function (req, res) {
+    console.log("email no duplicate call");
+    console.log(req.body);
+    console.log(req.body.username);
 
+    User.findOne({'email': req.body.email}, 'email', function (err, person) {
 
-  User.findOne({ 'email': req.body.email }, 'email', function (err, person) {
+        if (person === null) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
 
-    if(person===null){
-      res.send(true);
-    }else{
-      res.send(false);
-    }
-
-    if(err){
-      return handleError(err);
-    }
-  });
+        if (err) {
+            return handleError(err);
+        }
+    });
 });
 
 
@@ -111,25 +131,25 @@ app.post('/checkDuplicateDBEmail', function(req,res){
 
 
 /*var newUser = new User({
-  username : 'BlackPawn',
-  password : 'marcel2015',
-  email : 'johei1337@gmail.com',
-  verified : false,
-  avatar : null,
-  admin :true,
-  created : new Date(),
+ username : 'BlackPawn',
+ password : 'marcel2015',
+ email : 'johei1337@gmail.com',
+ verified : false,
+ avatar : null,
+ admin :true,
+ created : new Date(),
+ 
+ });
+ 
+ newUser.save(function (err) {
+ if (err){
+ console.log(err);
+ }
+ 
+ console.log('User created');
+ 
+ });*/
 
-});
-
-newUser.save(function (err) {
-  if (err){
-    console.log(err);
-  }
-
-  console.log('User created');
-
-});*/
-
-http.createServer(app).listen(app.get('port'), function(){
+http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
