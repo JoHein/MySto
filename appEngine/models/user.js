@@ -10,7 +10,7 @@ var userSchema = new Schema({
   created : Date,
   avatar : String,
   admin : Boolean
-})
+});
 var User = mongoose.model('User', userSchema);
 
 

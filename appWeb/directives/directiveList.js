@@ -16,11 +16,11 @@ angular.module('myStoriesApp')
           scope.$apply(function () {
             var valid = element.val()===$(firstpassword).val();
             ctrl.$setValidity('checkerrormatch',valid);
-          })
+          });
 
-        })
+        });
       }
-    }
+    };
   });
 
 angular.module('myStoriesApp')
@@ -29,22 +29,16 @@ angular.module('myStoriesApp')
     require: 'ngModel',
     link: function(scope, element, attrs, ngModel) {
 
-      function setAsLoading(bool) {
-        ngModel.$setValidity('pseudo', !bool);
-      }
-
       function setAsAvailable(bool) {
         ngModel.$setValidity('pseudo', bool);
       }
       ngModel.$parsers.push(function(value) {
         if (!value || value.length < 3 ) return;
-        setAsLoading(true);
         setAsAvailable(false);
 
         $http.post('/checkDuplicateDB', {'username': value})
          .then(function(success){
            if(success.data){
-             setAsLoading(false);
              setAsAvailable(true);
            }else{
              setAsLoading(false);
@@ -52,14 +46,13 @@ angular.module('myStoriesApp')
            }
 
         },function(error){
-          setAsLoading(false);
           setAsAvailable(false);
         });
 
         return value;
-      })
+      });
     }
-  }
+  };
 }]);
 
 angular.module('myStoriesApp')
@@ -68,35 +61,27 @@ angular.module('myStoriesApp')
       require: 'ngModel',
       link: function(scope, element, attrs, ngModel) {
 
-        function setAsLoading(bool) {
-          ngModel.$setValidity('emailloading', !bool);
-        }
-
         function setAsAvailable(bool) {
           ngModel.$setValidity('emaildispo', bool);
         }
         ngModel.$parsers.push(function(value) {
           if (!value || value.length < 3 ) return;
-          setAsLoading(true);
           setAsAvailable(false);
 
           $http.post('/checkDuplicateDBEmail', {'email': value})
             .then(function(success){
               if(success.data){
-                setAsLoading(false);
                 setAsAvailable(true);
               }else{
-                setAsLoading(false);
                 setAsAvailable(false);
               }
 
             },function(error){
-              setAsLoading(false);
               setAsAvailable(false);
             });
 
           return value;
-        })
+        });
       }
-    }
+    };
   }]);

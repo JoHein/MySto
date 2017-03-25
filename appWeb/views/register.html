@@ -6,7 +6,7 @@
 
 </head>
 <body>
-  <div class="container" ng-cloak="" >
+  <div class="container" >
     <div class="row centered-form">
       <div class="col-xs-12 col-sm-8 col-md-5 col-sm-offset-2 col-md-offset-3">
         <div class="panel panel-default">
@@ -16,16 +16,19 @@
           </div>
           <div class="panel-body">
 
-            <form role="form" name="rgtUser" ng-submit="registerUser()">
+              <form role="form" name="rgtUser" ng-submit="registerUser()">
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" check-duplicate-d-b="pseudo" ng-model-options="{ debounce :  800, updateOn : 'blur' }" class="form-control input-sm" placeholder="Pseudo">
-                    <div ng-if="rgtUser.pseudo.$dirty" ng-messages="rgtUser.pseudo.$error" class="my-messages" role="alert">
-                      <div ng-message="pseudo">Ce pseudo n'est pas disponible</div>
-                      <div ng-message="minlength">Pseudo trop court</div>
-                      <div ng-message="maxlength">Pseudo trop long</div>
-                    </div>
+                      
+                    <input required type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" ng-model-options="{ debounce :  800, updateOn : 'blur' }" 
+                           check-duplicate-d-b="pseudo" class="form-control input-sm" placeholder="Pseudo" >
+                    <div id="message" ng-if="rgtUser.pseudo.$touched" ng-messages="rgtUser.pseudo.$error" ng-messages-multiple="false" class="my-messages" role="alert">
+                          <div ng-message="pseudo">Ce pseudo n'est pas disponible</div>
+                          <div ng-message="minlength">Pseudo trop court</div>
+                          <div ng-message="maxlength">Pseudo trop long</div>
+                        </div>
+                    
                   </div>
                 </div>
 
@@ -37,8 +40,9 @@
               </div>
 
               <div class="form-group">
-                <input type="email" name="email1" ng-model="email1"  ng-minlength="10" id="email1" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-duplicate-d-b-email="email1" class="form-control input-sm" placeholder="Email Adresse">
-                    <div ng-if="rgtUser.email1.$dirty" ng-messages="rgtUser.email1.$error" class="my-messages" role="alert">
+                <input required type="email" name="email1" ng-model="email1"  ng-minlength="10" id="email1" ng-model-options="{ debounce :  800, updateOn : 'blur' }" 
+                       check-duplicate-d-b-email="email1" class="form-control input-sm" placeholder="Email Adresse">
+                    <div ng-if="rgtUser.email1.$error" ng-messages="rgtUser.email1.$error" ng-messages-multiple="false" class="my-messages" >
                         <div ng-message="email">Ce n'est pas un email valide</div>
                         <div ng-message="emaildispo">Cet email n'est pas disponible</div>
 
@@ -47,8 +51,8 @@
 
 
               <div class="form-group">
-                <input type="email" name="email2" id="email2" ng-model="email2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-same-directive="email1"  class="form-control input-sm" placeholder="Confirmer Email Adresse">
-                <div ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" class="my-messages" role="alert">
+                <input required type="email" name="email2" id="email2" ng-model="email2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-same-directive="email1"  class="form-control input-sm" placeholder="Confirmer Email Adresse">
+                <div ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" ng-messages-multiple="false" class="my-messages" >
                   <div ng-message="email">Ce n'est pas un email valide</div>
                   <div ng-message="checkerrormatch">L'email ne correspond pas!</div>
 
@@ -58,14 +62,14 @@
               <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password" ng-model="password" id="password" ng-minlength="3" ng-maxlength="20" class="form-control input-sm" placeholder="Mot de passe"/>
+                    <input required type="password" name="password" ng-model="password" id="password" ng-minlength="3" ng-maxlength="20" class="form-control input-sm" placeholder="Mot de passe"/>
                   </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                   <div class="form-group">
-                    <input type="password" name="password2" ng-model="password2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" id="password2" ng-minlength="4" ng-maxlength="20" check-same-directive="password" class="form-control input-sm" placeholder="Confirmer Mot de Passe"/>
+                    <input required type="password" name="password2" ng-model="password2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" id="password2" ng-minlength="4" ng-maxlength="20" check-same-directive="password" class="form-control input-sm" placeholder="Confirmer Mot de Passe"/>
 
-                    <div ng-messages="rgtUser.password2.$error" ng-if="rgtUser.password2.$dirty" class="my-messages" role="alert">
+                    <div ng-messages="rgtUser.password2.$error" ng-if="rgtUser.password2.$error" ng-messages-multiple="false" class="my-messages">
                       <div ng-message="minlength" class="some-message" >Mot de passe trop court </div>
                       <div ng-message="maxlength" class="some-message" >Mot de passe trop long</div>
                       <div ng-message="checkerrormatch" class="some-message" >Le mot de passe ne correspond pas</div>

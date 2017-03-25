@@ -51,11 +51,13 @@ angular.module('myStoriesApp')
       if($scope.rgtUser.$valid){
         var user = new Object();
         user.username=($scope.rgtUser.pseudo.$viewValue).toLowerCase();
-        user.pasword=$scope.rgtUser.password.$viewValue;
+        user.password=$scope.rgtUser.password.$viewValue;
         user.email=$scope.rgtUser.email1.$viewValue;
         user.recaptchaResponse=$scope.response;
         
-        User.save(user);
+        User.save(user,function(data){
+            $log.debug("POST POST POST", data);
+        });
       }else{
         var message = 'Le formulaire comporte des erreurs';
         Flash.create('warning', message);

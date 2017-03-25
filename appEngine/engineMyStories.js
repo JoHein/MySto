@@ -60,10 +60,6 @@ app.post('/user', function (req, res) {
     var secretKey = "6LeSHA0UAAAAAAAA_Dk0Lb4glW0co98viewVLrz_";
 
 
-//    if (req.body['recaptchaResponse'] === undefined || req.body['recaptchaResponse'] === '' || req.body['recaptchaResponse'] === null) {
-//        return res.json({"responseCode": 1, "responseDesc": "Please select captcha"});
-//    }
-
     var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret="
             + secretKey + "&response=" + req.body['recaptchaResponse']
             + "&remoteip=" + req.connection.remoteAddress;
@@ -74,17 +70,34 @@ app.post('/user', function (req, res) {
         if (body.success !== undefined && !body.success) {
             return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
         }
-        res.json({"responseCode": 0, "responseDesc": "Sucess"});
+        
+     
+
+        
+        //save User in database
+        var newUser = new User({
+                username : req.body.username,
+                password : req.body.password,
+                email : req.body.email,
+                verified : false,
+                avatar : null,
+                admin :false,
+                created : new Date(),
+            });
+            
+            newUser.save(function (err) {
+                if (err){
+                console.log(err);
+                res.json({"responseCode":1, "responseDesc":"Erreur de création de l'utilisateur"});
+            }
+                console.log('User created');
+         });
+         
+        res.json({"responseCode": 0, "responseDesc": "L'utilisateur a été créé"});
     });
 
+//    console.log(req.body);
 
-    console.log(req.body['recaptchaResponse']);
-
-
-    console.log(req.query);
-    console.log(req.body);
-
-//    res.send('Marcel did it!');
 });
 
 app.post('/checkDuplicateDB', function (req, res) {
