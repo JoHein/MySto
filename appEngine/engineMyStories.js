@@ -4,6 +4,7 @@ var session = require('express-session');
 var http = require('http');
 var path = require('path');
 var request = require('request');
+var mongoSanitize = require('express-mongo-sanitize');
 
 //Logger
 var morgan = require('morgan');
@@ -42,6 +43,8 @@ app.use(express.static('../appWeb')); // Indique que le dossier /public contient
 app.use('/partials', express.static('../appWeb/views/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
 logger.info('server start');
+//Pour savoir where the fuck j'ai mis mon required
+//logger.info(require);
 
 //Routing
 //var routes = require('../appWeb/index.ejs');
@@ -76,9 +79,9 @@ app.post('/user', function (req, res) {
         
         //save User in database
         var newUser = new User({
-                username : req.body.username,
-                password : req.body.password,
-                email : req.body.email,
+                username : mongoSanitize.sanitize(req.body.username),
+                password : mongoSanitize.sanitize(req.body.password),
+                email : mongoSanitize.sanitize(req.body.email),
                 verified : false,
                 avatar : null,
                 admin :false,
