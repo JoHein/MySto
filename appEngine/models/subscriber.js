@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
+var subscriberSchema = new Schema({
   username : {type : String, required : true, unique : true},
   password : {type:String, required : true},
   email : {type : String, required : true , unique : true},
@@ -11,7 +11,7 @@ var userSchema = new Schema({
   avatar : String,
   admin : Boolean
 });
-var User = mongoose.model('User', userSchema);
+var Subscriber = mongoose.model('Subscriber', subscriberSchema);
 
 
-module.exports = User;
+module.exports = Subscriber;

@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('RegisterCtrl', function ( $scope,$location, $log, User, $window, Flash, vcRecaptchaService) {
+  .controller('RegisterCtrl', function ( $scope,$location, $log, Subscriber, $window, Flash, vcRecaptchaService) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -11,7 +11,7 @@ angular.module('myStoriesApp')
       '$scope',
       '$location',
       '$log',
-      'User',
+      'Subscriber',
       '$window',
       'Flash',
       'vcRecaptchaService'
@@ -49,13 +49,13 @@ angular.module('myStoriesApp')
     $log.debug('sending the captcha response to the server', $scope.response);  
 
       if($scope.rgtUser.$valid){
-        var user = new Object();
-        user.username=($scope.rgtUser.pseudo.$viewValue).toLowerCase();
-        user.password=$scope.rgtUser.password.$viewValue;
-        user.email=$scope.rgtUser.email1.$viewValue;
-        user.recaptchaResponse=$scope.response;
+        var subscriber = new Object();
+        subscriber.username=($scope.rgtUser.pseudo.$viewValue).toLowerCase();
+        subscriber.password=$scope.rgtUser.password.$viewValue;
+        subscriber.email=$scope.rgtUser.email1.$viewValue;
+        subscriber.recaptchaResponse=$scope.response;
         
-        User.save(user,function(data){
+        Subscriber.save(subscriber,function(data){
             $log.debug("POST POST POST", data);
         });
       }else{

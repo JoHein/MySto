@@ -2,10 +2,10 @@
  * Created by FoxPC on 1/21/2017.
  */
 
-angular.module('myStoriesApp').factory('User', function($resource) {
+angular.module('myStoriesApp').factory('Subscriber', function($resource) {
 
   // Define CreditCard class
-  var User = $resource('/user/:id', {id:'@id'},
+  var Subscriber = $resource('/subscriber/:id', {id:'@id'},
     {
 
       'query': {method:'get',isArray:false},
@@ -14,5 +14,5 @@ angular.module('myStoriesApp').factory('User', function($resource) {
       'remove':{method:'delete',isArray:false}
 
     });
-  return User;
+  return Subscriber;
 });
