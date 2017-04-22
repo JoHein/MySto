@@ -87,7 +87,8 @@ app.post('/subscriber', function (req, res) {
                 created : new Date()
             });
             
-            newSubscriber.save(function (err) {
+            newSubscriber.save(function (err, data) {
+                
                 if (err){
                 console.log(err);
                 res.json({"responseCode":1, "responseDesc":"Erreur de création de l'utilisateur"});
@@ -95,8 +96,8 @@ app.post('/subscriber', function (req, res) {
                 console.log('Subscriber created');
                 //redirection page de validation d'email.
                 
-                var hash = bcrypt.hashSync(mongoSanitize.sanitize(req.body.password), bcrypt.genSaltSync(8), null);
-                var URL = mongoSanitize.sanitize(req.body.username)+hash+mongoSanitize.sanitize(req.body.email);
+//                var hash = bcrypt.hashSync(mongoSanitize.sanitize(req.body.password), bcrypt.genSaltSync(8), null);
+                var URL = "http://localhost:8081/#!/emailverification?key="+data._id;
 
                 let transporter = nodemailer.createTransport({
                     service: 'gmail',
@@ -112,9 +113,13 @@ app.post('/subscriber', function (req, res) {
                 let mailOptions = {
                     from: '"MyStoValidate" <mystoconfirm@gmail.com>', // sender address
                     to: mongoSanitize.sanitize(req.body.email), // list of receivers
-                    subject: 'Hello ✔', // Subject line
-                    text: 'Hello world ?'+ URL, // plain text body
-                    html: '<b>Hello world ? <a href="'+URL+'"/></b>' // html body
+                    subject: 'Bonjour '+mongoSanitize.sanitize(req.body.username)+' ✔', // Subject line
+                    text: 'Text ?'+ URL, // plain text body
+                    html: '<b>Bienvenu sur MySto,</b><br> \n\
+                           Il ne vous reste plus qu\'a vérifier votre émail en cliquand sur ce lien pour pouvoir écrire vos créations. <br> \n\
+                           <a href='+URL+'>Vérification email</a><br>\n\
+                            Cordialement,<br>\n\
+                            MySto Staff'// html body
                 };
 
                 // send mail with defined transport object
@@ -133,51 +138,21 @@ app.post('/subscriber', function (req, res) {
 
 });
 
-
-app.post('/confirmemail',function(){
+app.get('/emailverification',function(req,res){
     
-    var hash = bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
-    var URL = username+hash+email;
-
-    let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        port: 465,
-        secure: true, // use TLS
-            auth: {
-                user: 'mystoconfirm@gmail.com',
-                pass: 'wen5522pa'
-            }
-    });
- 
-    // setup email data with unicode symbols
-    let mailOptions = {
-        from: '"MyStoValidate" <mystoconfirm@gmail.com>', // sender address
-        to: mongoSanitize.sanitize(req.body.email), // list of receivers
-        subject: 'Hello ✔', // Subject line
-        text: 'Hello world ? ${URL}', // plain text body
-        html: '<b>Hello world ? <a href="'+URL+'"/></b>' // html body
-    };
-
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
+    Subscriber.findOne({"_id":req.query.keyVerif}, function(err,result){
+        if(result!==null){
+           res.json({"validationEmail": "OK"});
+        }else{
+           res.json({"validationEmail":"NOK"});
         }
-        console.log('Message %s sent: %s', info.messageId, info.response);
+        
+        if (err) {
+            return handleError(err);
+        }
     });
-    
-});
-
-app.get('/emailverification',function(){
-    //deHash data
-    // check if all this exist in database get hashed password from db
-    bcrypt.compare();
 
 });
-
-
-
-
 
 
 app.post('/checkDuplicateDB', function (req, res) {

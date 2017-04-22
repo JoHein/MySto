@@ -44,6 +44,10 @@ angular
             templateUrl:'views/article.html',
             controller:'ArticleCtrl'
         })
+        .when('/emailverification',{
+            templateUrl:'views/emailverification.html',
+            controller:'EmailVerificationCtrl'
+        })
         
       .otherwise({
         redirectTo: '/'
