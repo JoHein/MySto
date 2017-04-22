@@ -142,7 +142,9 @@ app.get('/emailverification',function(req,res){
     
     Subscriber.findOne({"_id":req.query.keyVerif}, function(err,result){
         if(result!==null){
-           res.json({"validationEmail": "OK"});
+            result.verified=true;
+            result.save();
+            res.json({"validationEmail": "OK"});
         }else{
            res.json({"validationEmail":"NOK"});
         }
