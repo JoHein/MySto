@@ -58,15 +58,29 @@ body {
   margin-top: 28px;
 }
 
+.loginscript{
+    float: right;
+    width: 20%;
+}
+
 .inscription{
   margin-top: 0.8em;
-  margin-right: 4em;
-  display: block;
-  float: right;
+  margin-right: 1em;
+  display: inline-block;
   position: relative;
-  text-align: right;
   border-radius: 0.5em;
   border-style: none;
+  width: 35%;
+}
+
+.login{
+  margin-top: 0.8em;
+  margin-right: 1em;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.5em;
+  border-style: none; 
+  width: 35%;
 }
 
 .iconConnexion{
@@ -191,9 +205,26 @@ body {
 
 }
 
+.loginFormExpand{
+    position:absolute;
+    top: 3.5em;
+    right: 2em;
+    background: black;
+}
+
+.loginFormExpand form{
+    padding: 0.5em;
+}
+
+.loginFormExpand input{
+    display: block;
+    margin-bottom: 0.2em;
+}
 
 
+.loginFormExpand button{
+    float: right;
+    margin-bottom: 0.2em;
 
-
-
+}
 

@@ -60,6 +60,33 @@ app.get('/', function (req, res) {
     res.render('index');
 });
 
+
+app.post('/login' ,function(req,res){
+    
+    
+    var emailUser = mongoSanitize.sanitize(req.body.emailUser);
+
+     Subscriber.findOne({'email':emailUser}, function (err, person) {
+         
+         var emailCheck = bcrypt.compareSync(req.body.passwordUser,person.password);
+
+        if (!emailCheck) {
+            res.json({"loginConfirm": "notValid"});
+        } else {
+            if(person.verified){
+                res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email});
+            }else{
+                res.json({"loginConfirm": "notVerified", "username": person.username, "emailuser": person.email});
+            }
+        }
+
+        if (err) {
+            return handleError(err);
+        }
+    });
+    
+});
+
 //Enregistrement base de donnée
 app.post('/subscriber', function (req, res) {
 
@@ -156,7 +183,6 @@ app.get('/emailverification',function(req,res){
 
 });
 
-
 app.post('/checkDuplicateDB', function (req, res) {
     console.log("Subscriber no duplicate call");
     console.log(req.body);
@@ -200,25 +226,25 @@ app.post('/checkDuplicateDBEmail', function (req, res) {
 
 
 
-/*var newSubscriber = new Subscriber({
- username : 'BlackPawn',
- password : 'marcel2015',
- email : 'johei1337@gmail.com',
- verified : false,
- avatar : null,
- admin :true,
- created : new Date(),
- 
- });
- 
- newSubscriber.save(function (err) {
- if (err){
- console.log(err);
- }
- 
- console.log('Subscriber created');
- 
- });*/
+//var newSubscriber = new Subscriber({
+// username : 'BlackPawn',
+// password : 'marcel2015',
+// email : 'johei1337@gmail.com',
+// verified : false,
+// avatar : null,
+// admin :true,
+// created : new Date(),
+// 
+// });
+// 
+// newSubscriber.save(function (err) {
+// if (err){
+// console.log(err);
+// }
+// 
+// console.log('Subscriber created');
+// 
+// });
 
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
