@@ -18,7 +18,8 @@ angular
     'ngMessages',
     'ngFlash',
     'ngAnimate',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'angularjs-crypto'
     ])
   .config(function ($routeProvider) {
     $routeProvider

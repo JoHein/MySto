@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('menuController', function ( $scope,$location, $log, LoginService) {
+  .controller('menuController', function ( $scope,$location, $log, LoginService,$location) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -11,7 +11,8 @@ angular.module('myStoriesApp')
       '$scope',
       '$location',
       '$log',
-      'LoginService'
+      'LoginService',
+      '$location'
     ];
     
 
@@ -19,19 +20,27 @@ angular.module('myStoriesApp')
       $location.path('/registerUser');
     };
     
-    
+            $log.debug("loginData");
+
     
     $scope.loginUser=function(logindata){
         $log.debug("loginData", logindata);
         
-        //TODO
-        //Encrypt password before sending???
-        
+    
         LoginService.tsop({emailUser:logindata.email,passwordUser:logindata.password},function(data){
             //store reponse in cookie to browse website
-            $log.debug("data retour login",data);
+                       $log.debug("data retour login");
+
+           $log.debug("data retour login",data);
+
             $scope.userLoginData= data;
+            
+            $location.path('/panelUser');
         });
+
+
+
+
         
     };
 

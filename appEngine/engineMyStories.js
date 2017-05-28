@@ -8,7 +8,8 @@ var mongoSanitize = require('express-mongo-sanitize');
 var nodemailer = require('nodemailer');
 var nev = require('email-verification')(mongoose);
 var bcrypt = require('bcryptjs');
-         
+
+
 //Logger
 var morgan = require('morgan');
 var logger = require('log4js').getLogger('Server');
@@ -74,9 +75,9 @@ app.post('/login' ,function(req,res){
             res.json({"loginConfirm": "notValid"});
         } else {
             if(person.verified){
-                res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email});
+               return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email});
             }else{
-                res.json({"loginConfirm": "notVerified", "username": person.username, "emailuser": person.email});
+               return res.json({"loginConfirm": "notVerified", "username": person.username, "emailuser": person.email});
             }
         }
 
