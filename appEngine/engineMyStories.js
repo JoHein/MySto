@@ -26,6 +26,8 @@ mongoose.connect('mongodb://localhost:27017/myproject');
 //require model User
 var Subscriber = require('./models/subscriber');
 
+//require model Article
+var Article = require('./models/article');
 
 
 // config
@@ -60,7 +62,6 @@ console.log(__dirname);
 app.get('/', function (req, res) {
     res.render('index');
 });
-
 
 app.post('/login' ,function(req,res){
     
@@ -224,8 +225,56 @@ app.post('/checkDuplicateDBEmail', function (req, res) {
 });
 
 
+app.get('/getListArticle',function(req,res){
+    
+    Article.find({'email':req.body.email})
+            .populate('postedBy')
+            .populate('tracker.favBy')
+            .exec(function(err,articles){
+                if (err) { throw err; }
+                    // On va parcourir le résultat et les afficher joliment
+                    var postArt;
+                    var dataArtSubscriber=[];
+                    for (var i = 0, l = articles.length; i < l; i++) {
+                      postArt = articles[i];
+                      console.log('------------------------------');
+                      console.log('Pseudo : ' + postArt.postedBy);
+                      console.log('Commentaire : ' + postArt.content);
+                      console.log('Date : ' + postArt.created);
+                      console.log('ID : ' + postArt._id);
+                      console.log('------------------------------');
+                      
+                      dataArtSubscriber.push(postArt);
+                      res.json({'listArtSubscriber':dataArtSubscriber});
+                    }
+            });
+});
 
-
+//var post = new Article({
+//    moderation: true,
+//    title:"Marcel",
+//    content: "Je test ici le retour d'article d'un utilisateur",
+//    source: [],
+//    created: new Date(),
+//    category: "Fiction",
+//    
+//    postedBy: 'mystoconfirm@gmail.com'._id,
+// 
+//    tracker: [{
+//            stars: 2,
+//            favBy: "johei1337@gmail.com"._id
+//        }]
+//
+//});
+//
+//post.save(function (err) {
+// if (err){
+// console.log(err);
+// }
+// 
+// console.log('Article created');
+// 
+// });
 
 //var newSubscriber = new Subscriber({
 // username : 'BlackPawn',
@@ -250,3 +299,6 @@ app.post('/checkDuplicateDBEmail', function (req, res) {
 http.createServer(app).listen(app.get('port'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
+
+
+
