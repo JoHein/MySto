@@ -258,12 +258,12 @@ app.get('/getListArticle',function(req,res){
 //    created: new Date(),
 //    category: "Fiction",
 //    
-//    postedBy: 'mystoconfirm@gmail.com'._id,
+//    postedBy: "591033b75e9e91900728482b",
 // 
-//    tracker: [{
-//            stars: 2,
-//            favBy: "johei1337@gmail.com"._id
-//        }]
+//    tracker: {
+//            stars: 1,
+//            favBy: ["59103241de86ce641df23a53"]
+//        }
 //
 //});
 //

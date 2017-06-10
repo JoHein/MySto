@@ -228,3 +228,16 @@ body {
 
 }
 
+svg{
+    width: 25%;
+    height:30%;
+    cursor: pointer;
+}
+
+#general th{
+    padding-right: 3em;
+}
+
+#general td{
+    padding-right: 2em;
+}

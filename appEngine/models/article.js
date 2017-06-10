@@ -14,13 +14,13 @@ var articleSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Subscriber'
     },
-    tracker: [{
+    tracker: {
             stars: Number,
-            favBy: {
+            favBy: [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Subscriber'
-            }
-        }]
+            }]
+        }
 
 });
 var Article = mongoose.model('Article', articleSchema);

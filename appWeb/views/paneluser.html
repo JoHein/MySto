@@ -20,11 +20,24 @@
                 <tr>
                     <th>Titre</th>
                     <th>Catégorie</th>
-                    <th>Editer</th>
+                    <th>Time</th>
+                    <th>Favoris</th>
+
+                    <th style="width: 5em;">Editer</th>
                     <th>Publier</th>
                     <th>Supprimer</th>
                 </tr>
-                <tr ng-repeat=""></tr>
+                <tr ng-repeat="item in listArticle" style="height: 0.5em;">
+                    <td>{{item.title}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.created}}</td>
+                    <td>{{item.tracker.stars}}</td>
+                    
+                    <td style="width:5em"><md-icon class="s24" md-svg-src="../images/ic_mode_edit_black_24px.svg"></md-icon></td>
+                    <td>{{item.moderation}}</td>
+                    <td style="width:5em"><md-icon style="height: 0.5em; width: 0.5em;" md-svg-src="../images/ic_delete_forever_black_24px.svg"></md-icon></td>
+
+                </tr>
                 </tbody>
             </table>
 
