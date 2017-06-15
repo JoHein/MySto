@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('menuController', function ( $scope,$location, $log, LoginService,$location) {
+  .controller('menuController', function ( $scope,$location, $log, LoginService,$location, $rootScope) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -12,7 +12,8 @@ angular.module('myStoriesApp')
       '$location',
       '$log',
       'LoginService',
-      '$location'
+      '$location',
+      '$rootScope'
     ];
     
 
@@ -29,13 +30,16 @@ angular.module('myStoriesApp')
     
         LoginService.tsop({emailUser:logindata.email,passwordUser:logindata.password},function(data){
             //store reponse in cookie to browse website
-                       $log.debug("data retour login");
 
            $log.debug("data retour login",data);
+           
+           if(data.loginConfirm==="valid"){
+                $rootScope.userLoginData= data;
+                $location.path('/panelUser');
+           }else{
+                $rootScope.userLoginData= data;
+           }
 
-            $scope.userLoginData= data;
-            
-            $location.path('/panelUser');
         });
 
 

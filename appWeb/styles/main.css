@@ -241,3 +241,11 @@ svg{
 #general td{
     padding-right: 2em;
 }
+
+.msgErrorLogin{
+    top: 5em;
+    position: absolute;
+    right: 17em;
+    background-color: red;
+    padding: 1em;
+}

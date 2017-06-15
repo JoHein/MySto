@@ -28,9 +28,14 @@
                 <input type="text" name="email" ng-model="logindata.email" placeholder="Email"/>
                 <input type="password" name="password" ng-model="logindata.password" placeholder="mot de passe"/>
                 <button type="submit" ng-click="loginUser(logindata)"/>Valider</button>
+
             </form>
         </div>
-          <div ng-show="userLoginData.loginConfirm==='valid'" class="iconConnexion">
+          <div ng-show="userLoginData.loginConfirm==='notVerified'" class='msgErrorLogin'>
+              <p>L'email de cet utilisateur n'a pas été vérifié</p>
+        </div>
+        <div ng-show="userLoginData.loginConfirm==='notValid'" class='msgErrorLogin'>
+              <p>Cet utilisateur n'éxiste pas</p>
         </div>
       </div>
       <!-- /.navbar-collapse -->
