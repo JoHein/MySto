@@ -40,6 +40,9 @@ angular
         .when('/panelUser',{
             templateUrl:'views/paneluser.html',
             controller: 'PanelUserCtrl'
+//            resolve: {
+//                access: ["Access", function(Access) { return Access.hasRole("ADMIN"); }]
+//            }
         })
         .when('/article',{
             templateUrl:'views/article.html',

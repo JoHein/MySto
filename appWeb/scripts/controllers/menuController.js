@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('menuController', function ( $scope,$location, $log, LoginService,$location, $rootScope) {
+  .controller('menuController', function ( $scope,$location, $log, LoginService,$location, $rootScope, $cookies) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -13,7 +13,8 @@ angular.module('myStoriesApp')
       '$log',
       'LoginService',
       '$location',
-      '$rootScope'
+      '$rootScope',
+      '$cookies'
     ];
     
 
@@ -35,17 +36,18 @@ angular.module('myStoriesApp')
            
            if(data.loginConfirm==="valid"){
                 $rootScope.userLoginData= data;
+                $rootScope.authenticated=true;
+
+                $cookies.put('globals', $rootScope.userLoginData);
                 $location.path('/panelUser');
            }else{
                 $rootScope.userLoginData= data;
+                $rootScope.authenticated=false;
+
            }
 
         });
 
-
-
-
-        
     };
 
   });
