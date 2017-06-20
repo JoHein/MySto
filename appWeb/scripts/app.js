@@ -39,14 +39,14 @@ angular
       })
         .when('/panelUser',{
             templateUrl:'views/paneluser.html',
-            controller: 'PanelUserCtrl'
-//            resolve: {
-//                access: ["Access", function(Access) { return Access.hasRole("ADMIN"); }]
-//            }
+            controller: 'PanelUserCtrl',
+            requireAuth: true
+
         })
         .when('/article',{
             templateUrl:'views/article.html',
-            controller:'ArticleCtrl'
+            controller:'ArticleCtrl',
+            requireAuth: true
         })
         .when('/emailverification',{
             templateUrl:'views/emailverification.html',

@@ -17,6 +17,8 @@ angular.module('myStoriesApp')
       '$cookies'
     ];
     
+    $rootScope.authenticated=false;
+
 
     $scope.goRegister = function () {
       $location.path('/registerUser');
@@ -43,11 +45,23 @@ angular.module('myStoriesApp')
            }else{
                 $rootScope.userLoginData= data;
                 $rootScope.authenticated=false;
-
            }
+  
 
         });
 
     };
+    
+              $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {
+               $log.debug('in the contrll');
+               
+               var loggedIn= $rootScope.authenticated;
+
+                if (newUrl.requireAuth && !loggedIn) {
+                    // User isn’t authenticated
+                    $location.path("/");
+                }
+
+            });
 
   });
