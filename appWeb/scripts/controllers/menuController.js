@@ -46,22 +46,21 @@ angular.module('myStoriesApp')
                 $rootScope.userLoginData= data;
                 $rootScope.authenticated=false;
            }
-  
 
         });
 
     };
     
-              $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {
-               $log.debug('in the contrll');
-               
+            $scope.toPanelUser = function(){
+                $location.path("/panelUser");
+            };
+    
+              $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {              
                var loggedIn= $rootScope.authenticated;
-
                 if (newUrl.requireAuth && !loggedIn) {
                     // User isn’t authenticated
                     $location.path("/");
                 }
-
             });
 
   });

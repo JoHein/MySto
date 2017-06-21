@@ -249,3 +249,11 @@ svg{
     background-color: red;
     padding: 1em;
 }
+
+.glyphicon-user{
+    background-color: white;
+    top: 0.1em;
+    font-size: 3.2em;
+    right: 2em;
+    position: absolute;
+}

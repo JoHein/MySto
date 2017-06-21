@@ -23,12 +23,14 @@
             <button type="button" class="inscription btn-sm btn-default" ng-click='goRegister()' >Inscription</button>
             <button type="button" class="login btn-sm btn-default" ng-click='expandLogin = !expandLogin' >Connexion</button>
         </div>
+          <div ng-show="userLoginData.loginConfirm==='valid'" class="loginscript">
+              <div class="glyphicon glyphicon-user" ng-click="toPanelUser()" style="background-color: white"></div> 
+          </div>  
         <div ng-hide="userLoginData.loginConfirm==='valid'" class="loginFormExpand">
             <form ng-show="expandLogin===true">
                 <input type="text" name="email" ng-model="logindata.email" placeholder="Email"/>
                 <input type="password" name="password" ng-model="logindata.password" placeholder="mot de passe"/>
                 <button type="submit" ng-click="loginUser(logindata)"/>Valider</button>
-
             </form>
         </div>
           <div ng-show="userLoginData.loginConfirm==='notVerified'" class='msgErrorLogin'>
