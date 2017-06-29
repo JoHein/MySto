@@ -12,14 +12,17 @@ angular.module('myStoriesApp')
         ];
         
         $scope.listArticle=null;
-        $log.debug("test logindata",$rootScope.userLoginData.emailuser );
-        ArticleService.query({email:$rootScope.userLoginData.emailuser},function(data){
-            $log.debug("retour de l'article dans le controller JS: ", data.listArtSubscriber );
-            $scope.listArticle=data.listArtSubscriber;
-            
-        },function(error){
-            $log.debug("error get List Article",error);
-        });
+        
+        $log.debug("test logindata",$rootScope.userLoginData );
+ 
+            ArticleService.query({email:$rootScope.userLoginData.currentUser.emailuser},function(data){
+                $log.debug("retour de l'article dans le controller JS: ", data.listArtSubscriber );
+                $scope.listArticle=data.listArtSubscriber;
+
+            },function(error){
+                $log.debug("error get List Article",error);
+            });
+    
         
         $scope.writeOpen = function(){
             $location.path('/article');
