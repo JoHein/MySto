@@ -34,6 +34,13 @@ angular.module('myStoriesApp')
     
         };
         
+        $scope.discUser = function(){
+            $cookies.remove('globals');
+            $rootScope.authenticated=false;
+            $rootScope.userLoginData="";
+            $location.path('/');
+        };
+        
         $scope.writeOpen = function(){
             $location.path('/article');
         };
