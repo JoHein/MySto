@@ -3,7 +3,7 @@
  */
 
 angular.module('myStoriesApp')
-  .controller('menuController', function ( $scope,$location, $log, LoginService,$location, $rootScope, $cookies) {
+  .controller('menuController', function ( $scope,$location, $log, LoginService,$location, $rootScope, $cookies,AuthService) {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
@@ -14,7 +14,8 @@ angular.module('myStoriesApp')
       'LoginService',
       '$location',
       '$rootScope',
-      '$cookies'
+      '$cookies',
+      'AuthService'
     ];
     
     $rootScope.authenticated=false;
@@ -25,28 +26,10 @@ angular.module('myStoriesApp')
     
             $log.debug("loginData");
             
-       checkInitCookie();
-       function checkInitCookie(){
-            
-            var dataCook = $cookies.getObject('globals');
-            $log.debug("token expire in",dataCook);
-            $log.debug("token expire in",dataCook.currentUser);
 
-            if(dataCook){
-                
-                 $rootScope.authenticated=true;
-                 this.currentUserMySto = dataCook.currentUser.username;
-                 this.currentEmailMySto = dataCook.currentUser.emailuser;
-                $rootScope.userLoginData= dataCook;
 
-            }else{
-                
-                $log.debug("else");
-                $rootScope.authenticated=false;
-                $rootScope.userLoginData= "";
-
-            }
-        }        
+            $log.debug("test service Auth",AuthService());
+     
 
     
     $scope.loginUser=function(logindata){

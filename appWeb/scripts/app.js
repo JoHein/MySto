@@ -40,13 +40,23 @@ angular
         .when('/panelUser',{
             templateUrl:'views/paneluser.html',
             controller: 'PanelUserCtrl',
-            requireAuth: true
+            requireAuth: true,
+            resolve:{
+                dataUser:function(AuthService){
+                    return AuthService();
+                }
+            }
 
         })
         .when('/article',{
             templateUrl:'views/article.html',
             controller:'ArticleCtrl',
-            requireAuth: true
+            requireAuth: true,
+            resolve:{
+                dataUser:function(AuthService){
+                    return AuthService();
+                }
+            }
         })
         .when('/emailverification',{
             templateUrl:'views/emailverification.html',
