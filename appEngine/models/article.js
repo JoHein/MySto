@@ -4,15 +4,17 @@ var Schema = mongoose.Schema;
 
 var articleSchema = new Schema({
     moderation: Boolean,
-    title:String,
-    content: String,
+    title:{type:String,required:true},
+    content: {type:String,required:true},
     source: [String],
     created: {type: Date, default: Date.now},
-    category: String,
+    category: {type:String,required:true},
 
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Subscriber'
+        ref: 'Subscriber',
+        required: true
+
     },
     tracker: {
             stars: Number,

@@ -6,8 +6,17 @@
 </head>
 <body>
     <div class="container">
+        
         <p>ck editor plus voir si edition</p>
         <p>Comment stocker les images (imgur?)</p>
+        <button ng-click="goBack()">Revenir</button>
+        <form id="formcontainer">
+            <label>Catégorie<input type="search" ng-model="article.category" /></label><br />
+            <label>Titre <input type="text" ng-model="article.title" /></label><br />
+            <textarea  rows="4" cols="50" ng-model="article.content" placeholder="Votre texte"> </textarea><br />
+            <label>Sources <input type="text" ng-model="article.source"/></label><br />
+            <input type="submit" ng-click="soumettre(article)" value="Soumettre"/>
+        </form>
     </div>
 </body>
 </html>

@@ -2258,13 +2258,7 @@ md-grid-list {
 md-icon {
   margin: auto;
   background-repeat: no-repeat no-repeat;
-  display: inline-block;
-  vertical-align: middle;
-  fill: currentColor;
-  height: 24px;
-  width: 24px;
-  min-height: 24px;
-  min-width: 24px; }
+  vertical-align: middle; }
   md-icon svg {
     pointer-events: none;
     display: block; }

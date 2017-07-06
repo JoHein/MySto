@@ -1,17 +1,43 @@
 angular.module('myStoriesApp')
-    .controller('ArticleCtrl', function ($scope,$location, $log ) {
+    .controller('ArticleCtrl', function ($scope,$location, $log,dataUser,ArticleService,$window,dataUser, $mdDialog ) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma',
             '$scope',
             '$location',
-            '$log'
+            '$log',
+            'dataUser',
+            'ArticleService',
+            '$window',
+            'dataUser',
+            '$mdDialog'
         ];
         
         
-//        https://stackoverflow.com/questions/20969835/angularjs-login-and-authentication-in-each-route-and-controller/29797145#29797145
+        $scope.soumettre=function(article){
+            
+            article.emailuser=dataUser.userLoginData.currentUser.emailuser;
+            
+            ArticleService.save(article,function(data){
+                $log.debug("data engineMyStorie",data);
+                                   
+                    $mdDialog.show(
+                            $mdDialog.alert({
+                                title: 'Info',
+                                textContent: data.reponseSauvegarde,
+                                ok: 'Ok'
+                                })
+                    );
+
+            });
+            
+        };
         
-    });
+        $scope.goBack=function(){
+          $location.path('/panelUser');  
+        };
+
+});
 
 
