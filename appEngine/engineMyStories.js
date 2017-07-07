@@ -6,7 +6,6 @@ var path = require('path');
 var request = require('request');
 var mongoSanitize = require('express-mongo-sanitize');
 var nodemailer = require('nodemailer');
-var nev = require('email-verification')(mongoose);
 var bcrypt = require('bcryptjs');
 
 
@@ -237,6 +236,7 @@ app.get('/getListArticle',function(req,res){
                     var dataArtSubscriber=[];
                     for (var i = 0, l = articles.length; i < l; i++) {
                       postArt = articles[i];
+                      
                       console.log('------------------------------');
                       console.log('Pseudo : ' + postArt.postedBy);
                       console.log('Commentaire : ' + postArt.content);
@@ -245,9 +245,56 @@ app.get('/getListArticle',function(req,res){
                       console.log('------------------------------');
                       
                       dataArtSubscriber.push(postArt);
-                      res.json({'listArtSubscriber':dataArtSubscriber});
                     }
+               res.json({'listArtSubscriber':dataArtSubscriber});
+
             });
+});
+
+app.post('/getListArticle',function(req,res){
+    
+            var iduser=null;
+            
+            Subscriber.findOne({'email':mongoSanitize.sanitize(req.body.emailuser)},function(err,person){
+                console.log('person ' + person);
+                
+                if(person){
+                  iduser=person._id;
+                  console.log('ID' + iduser);
+
+                            var newArticle= new Article({
+                            moderation : false,
+                            title : mongoSanitize.sanitize(req.body.title),
+                            content : mongoSanitize.sanitize(req.body.content),
+                            source : mongoSanitize.sanitize(req.body.source),
+                            created : new Date(),
+                            category : mongoSanitize.sanitize(req.body.category),
+                            postedBy : iduser,
+
+                            tracker: {
+                                stars: 0,
+                                favBy: []
+                            }
+
+                        });
+
+                        newArticle.save(function(err,data){
+                            if(data){
+                                res.json({'reponseSauvegarde':'Votre message a été soumis à modération'});
+                            }else{
+                                res.json({'reponseSauvegarde':'Une erreur c\'est produite. Veuillez reessayer ultérieurement'});
+                            }
+                        });
+                    }
+                
+                
+                if(err){
+                    console.log('Erreur dans la récupération de l\'utisateur au moment de la sauvegarde d\'article');
+                }
+                
+            });
+
+   
 });
 
 //var post = new Article({

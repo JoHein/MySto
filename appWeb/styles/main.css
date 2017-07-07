@@ -259,9 +259,11 @@ svg{
 }
 
 .md-icon svg{
+    
     pointer-events: none;
     display: block;
     height: 30%;
-    cursor: pointer;
     width: 32%;
+    cursor: pointer;
+
 }

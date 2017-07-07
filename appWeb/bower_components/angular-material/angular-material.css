@@ -2258,7 +2258,7 @@ md-grid-list {
 md-icon {
   margin: auto;
   background-repeat: no-repeat no-repeat;
-  vertical-align: middle; }
+  cursor: pointer; }
   md-icon svg {
     pointer-events: none;
     display: block; }
