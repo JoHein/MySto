@@ -7,7 +7,7 @@ var articleSchema = new Schema({
     title:{type:String,required:true},
     content: {type:String,required:true},
     source: [String],
-    created: {type: Date, default: Date.now},
+    created: {type: Date},
     category: {type:String,required:true},
 
     postedBy: {

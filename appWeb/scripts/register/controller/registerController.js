@@ -42,9 +42,6 @@ angular.module('myStoriesApp')
 
 
     $scope.registerUser=function(){
-//      $log.debug($scope.rgtUser.pseudo);
-//      $log.debug($scope.rgtUser.email1);
-//      $log.debug($scope.rgtUser.password);
       
     $log.debug('sending the captcha response to the server', $scope.response);  
 

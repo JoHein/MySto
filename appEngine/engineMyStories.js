@@ -31,7 +31,7 @@ var Article = require('./models/article');
 
 // config
 app.set('view engine', 'ejs');
-app.set('views', '../appWeb/views');
+app.set('views', '../appWeb/scripts');
 app.set('port', process.env.PORT || 8081);
 
 app.use(bodyParser.json({type: 'application/json'}));
@@ -45,7 +45,7 @@ app.use(morgan('combined')); // Active le middleware de logging
 app.use(session({secret: "marcelproust", resave: false, saveUninitialized: true}));
 
 app.use(express.static('../appWeb')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
-app.use('/partials', express.static('../appWeb/views/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
+app.use('/partials', express.static('../appWeb/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 
 logger.info('server start');
 //Pour savoir where the fuck j'ai mis mon required
@@ -103,6 +103,7 @@ app.post('/subscriber', function (req, res) {
         if (body.success !== undefined && !body.success) {
             return res.json({"responseCode": 1, "responseDesc": "Failed captcha verification"});
         }
+        
 
         //save User in database
         var newSubscriber= new Subscriber({
@@ -112,7 +113,7 @@ app.post('/subscriber', function (req, res) {
                 verified : false,
                 avatar : null,
                 admin :false,
-                created : new Date()
+                created :  new Date()
             });
             
             newSubscriber.save(function (err, data) {
@@ -235,15 +236,16 @@ app.get('/getListArticle',function(req,res){
                     var postArt;
                     var dataArtSubscriber=[];
                     for (var i = 0, l = articles.length; i < l; i++) {
+                        
                       postArt = articles[i];
                       
                       console.log('------------------------------');
                       console.log('Pseudo : ' + postArt.postedBy);
-                      console.log('Commentaire : ' + postArt.content);
+                      console.log('Texte : ' + postArt.content);
                       console.log('Date : ' + postArt.created);
                       console.log('ID : ' + postArt._id);
                       console.log('------------------------------');
-                      
+
                       dataArtSubscriber.push(postArt);
                     }
                res.json({'listArtSubscriber':dataArtSubscriber});
@@ -257,7 +259,7 @@ app.post('/getListArticle',function(req,res){
             
             Subscriber.findOne({'email':mongoSanitize.sanitize(req.body.emailuser)},function(err,person){
                 console.log('person ' + person);
-                
+
                 if(person){
                   iduser=person._id;
                   console.log('ID' + iduser);

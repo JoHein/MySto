@@ -11,9 +11,6 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css"/>
 
-    <!-- endbower -->
-    <!-- endbuild -->
-
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="../styles/main.css">
     <link href="../styles/1-col-portfolio.css" rel="stylesheet"/>
@@ -68,24 +65,26 @@
 
 <!-- build:js({.tmp,app}) scripts/scripts.js -->
 <script src="../scripts/app.js"></script>
-<script src="../scripts/controllers/main.js"></script>
-<script src="../scripts/controllers/about.js"></script>
-<script src="../scripts/controllers/menuController.js"></script>
+<script src="../scripts/mainPage/controller/main.js"></script>
 
-<script src="../scripts/services/subscriberService.js"></script>
-<script src="../scripts/controllers/registerController.js"></script>
+<script src="../scripts/about/controller/about.js"></script>
 
-<script src="../scripts/controllers/articleController.js"></script>
-<script src="../scripts/controllers/panelUserController.js"></script>
+<script src="../scripts/login/service/loginService.js"></script>
+<script src="../scripts/login/service/authService.js"></script>
+<script src="../scripts/login/controller/menuController.js"></script>
 
-<script src="../scripts/controllers/emailverificationController.js"></script>
-<script src="../scripts/services/emailverificationService.js"></script>
+<script src="../scripts/register/service/subscriberService.js"></script>
+<script src="../scripts/register/controller/registerController.js"></script>
 
-<script src="../scripts/services/loginService.js"></script>
-<script src="../scripts/services/articleService.js"></script>
+<script src="../scripts/article/service/articleService.js"></script>
+<script src="../scripts/article/controller/articleController.js"></script>
+
+<script src="../scripts/emailverification/controller/emailverificationController.js"></script>
+<script src="../scripts/emailverification/service/emailverificationService.js"></script>
+
+<script src="../scripts/panelUser/controller/panelUserController.js"></script>
 
 <script src="../directives/directiveList.js"></script>
-<script src="../scripts/services/authService.js"></script>
 
 
 <!-- endbuild -->

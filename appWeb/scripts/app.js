@@ -24,44 +24,43 @@ angular
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'scripts/mainPage/main.html',
         controller: 'MainCtrl',
         controllerAs: 'main'
       })
       .when('/about', {
-        templateUrl: 'views/about.html',
+        templateUrl: 'scripts/about/about.html',
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
       .when('/registerUser',{
-        templateUrl:'views/register.html',
+        templateUrl:'scripts/register/register.html',
         controller: 'RegisterCtrl'
       })
-        .when('/panelUser',{
-            templateUrl:'views/paneluser.html',
-            controller: 'PanelUserCtrl',
-            requireAuth: true,
-            resolve:{
-                dataUser:function(AuthService){
-                    return AuthService();
-                }
+    .when('/panelUser',{
+        templateUrl:'scripts/panelUser/paneluser.html',
+        controller: 'PanelUserCtrl',
+        requireAuth: true,
+        resolve:{
+            dataUser:function(AuthService){
+                return AuthService();
             }
-
-        })
-        .when('/article',{
-            templateUrl:'views/article.html',
-            controller:'ArticleCtrl',
-            requireAuth: true,
-            resolve:{
-                dataUser:function(AuthService){
-                    return AuthService();
-                }
+        }
+    })
+    .when('/article',{
+        templateUrl:'scripts/article/article.html',
+        controller:'ArticleCtrl',
+        requireAuth: true,
+        resolve:{
+            dataUser:function(AuthService){
+                return AuthService();
             }
-        })
-        .when('/emailverification',{
-            templateUrl:'views/emailverification.html',
-            controller:'EmailVerificationCtrl'
-        })
+        }
+    })
+    .when('/emailverification',{
+        templateUrl:'scripts/emailverification/emailverification.html',
+        controller:'EmailVerificationCtrl'
+    })
         
       .otherwise({
         redirectTo: '/'
