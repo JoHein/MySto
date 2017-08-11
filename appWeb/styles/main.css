@@ -267,3 +267,12 @@ svg{
     cursor: pointer;
 
 }
+
+.sortorder:after{
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  content: "\e155";
+  position: absolute;
+}

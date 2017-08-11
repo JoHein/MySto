@@ -25,15 +25,25 @@
             <table id="general" class="tab-pane fade in active">
                 <tbody>
                 <tr>
-                    <th>Titre</th>
-                    <th>Catégorie</th>
-                    <th>Date</th>
-                    <th>Favoris</th>
+                    <th ng-click="sortBy('title')">Titre 
+                        <span class="sortorder" ng-show="propertyName === 'title'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th ng-click="sortBy('category')">Catégorie
+                        <span class="sortorder" ng-show="propertyName === 'category'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th ng-click="sortBy('created')">Date
+                        <span class="sortorder" ng-show="propertyName === 'created'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th style="width: 8em;" ng-click="sortBy('tracker.stars')">Favoris
+                        <span class="sortorder" ng-show="propertyName === 'tracker.stars'" ng-class="{reverse: reverse}"></span>
+                    </th>
                     <th style="width: 5em;">Editer</th>
-                    <th>Publier</th>
+                    <th ng-click="sortBy('moderation')">Publier
+                        <span class="sortorder" ng-show="propertyName === 'moderation'" ng-class="{reverse: reverse}"></span>
+                    </th>
                     <th>Supprimer</th>
                 </tr>
-                <tr ng-repeat="item in listArticle" style="height: 0.5em;">
+                <tr ng-repeat="item in listArticle | orderBy:propertyName:reverse" style="height: 0.5em;">
                     <td>{{item.title}}</td>
                     <td>{{item.category}}</td>
                     <td>{{item.created}}</td>

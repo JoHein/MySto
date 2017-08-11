@@ -1,5 +1,5 @@
 angular.module('myStoriesApp')
-    .controller('PanelUserCtrl', function ( $scope ,$location, $log,ArticleService,$rootScope, $cookies,dataUser  ) {
+    .controller('PanelUserCtrl', function ( $scope ,$location, $log,ArticleService,$rootScope, $cookies, dataUser, orderBy ) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -10,7 +10,8 @@ angular.module('myStoriesApp')
             'ArticleService',
             '$rootScope',
             '$cookies',
-            'dataUser'
+            'dataUser',
+            'orderByFilter'
         ];
         
         $scope.listArticle=null;
@@ -45,7 +46,10 @@ angular.module('myStoriesApp')
                 });
                 
                 $scope.listArticle=data.listArtSubscriber;
-
+                  
+                $scope.propertyName = 'title';
+                $scope.reverse = false;
+                $scope.listArticle = orderBy($scope.listArticle, $scope.propertyName, $scope.reverse);
             },function(error){
                 $log.debug("error get List Article",error);
             });
@@ -61,6 +65,11 @@ angular.module('myStoriesApp')
         
         $scope.writeOpen = function(){
             $location.path('/article');
+        };
+        
+        $scope.sortBy = function (propertyName) {
+            $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
+            $scope.propertyName = propertyName;
         };
 
     });
