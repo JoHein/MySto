@@ -1,5 +1,5 @@
 angular.module('myStoriesApp')
-    .controller('PanelUserCtrl', function ( $scope ,$location, $log, ArticleService,$rootScope, $cookies, $mdDialog, GetArticleDetail  ) {
+    .controller('PanelAdminCtrl', function ( $scope ,$location, $log,ArticleService,$rootScope, $cookies, dataUser ) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -10,8 +10,7 @@ angular.module('myStoriesApp')
             'ArticleService',
             '$rootScope',
             '$cookies',
-            '$mdDialog',
-            'GetArticleDetail'
+            'dataUser'
         ];
         
         $scope.listArticle=null;
@@ -49,7 +48,7 @@ angular.module('myStoriesApp')
                   
                 $scope.propertyName = 'title';
                 $scope.reverse = false;
-                
+                $scope.listArticle = orderBy($scope.listArticle, $scope.propertyName, $scope.reverse);
             },function(error){
                 $log.debug("error get List Article",error);
             });
@@ -63,44 +62,13 @@ angular.module('myStoriesApp')
             $location.path('/');
         };
         
-        $scope.writeOpen = function(article){
-            
-            GetArticleDetail.setProperty(article);
+        $scope.writeOpen = function(){
             $location.path('/article');
-            
         };
         
         $scope.sortBy = function (propertyName) {
             $scope.reverse = ($scope.propertyName === propertyName) ? !$scope.reverse : false;
             $scope.propertyName = propertyName;
-        };
-        
-        
-        
-        $scope.deleteArticle=function(article){
-            
-              var deleteArticle = $mdDialog.confirm()
-               .title('Attention')
-               .textContent('Voulez-vous supprimer cet article : '+ article.title +'? \n')
-               .ariaLabel('Suppression article')
-               .cancel('Annuler')
-               .ok('Confirmer');
-            
-
-            $mdDialog.show(deleteArticle).then(function() {
-                $log.debug("delete Article confirm OK");
-
-                ArticleService.remove(article,function(data){
-                    $log.debug('Removed answer :' + data);
-                    
-                    var index = $scope.listArticle.indexOf(article);
-                    $scope.listArticle.splice(index, 1);
-                });
-                       
-            }, function() {
-                $log.debug("delete Article confirm CANCEL");
-            });
-
         };
 
     });

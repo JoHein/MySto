@@ -6,17 +6,13 @@
 </head>
 <body>
     <div ng-cloak="">
-        <h3>Bienvenue {{userLoginData.currentUser.username}}</h3>
-        <button ng-click="writeOpen(null)">Ecrire</button>
-        <button ng-click="updateProfil()">Modifier le profil</button>
+        <h3>Admin {{userLoginData.currentUser.username}}</h3>
         <button ng-click="discUser()">Déconnexion</button>
-
     </div>
     <div class="container">
 
         <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" data-target="#general">Général</a></li>
-        <li><a data-toggle="tab" data-target="#detail">Détail</a></li>
         <li><a data-toggle="tab" data-target="#repartition">Répartition</a></li>
     </ul>
         <div class="tab-content">
@@ -34,15 +30,11 @@
                     <th ng-click="sortBy('created')">Date
                         <span class="sortorder" ng-show="propertyName === 'created'" ng-class="{reverse: reverse}"></span>
                     </th>
-                    <th style="width: 8em;" ng-click="sortBy('tracker.stars')">Favoris
-                        <span class="sortorder" ng-show="propertyName === 'tracker.stars'" ng-class="{reverse: reverse}"></span>
-                    </th>
-                    <th style="width: 5em;">Editer</th>
+                    <th style="width: 5em;">Publié</th>
                     <th ng-click="sortBy('moderation')">Publier
                         <span class="sortorder" ng-show="propertyName === 'moderation'" ng-class="{reverse: reverse}"></span>
                     </th>
                     <th>Supprimer</th>
-                    
                 </tr>
                 <tr ng-repeat="item in listArticle | orderBy:propertyName:reverse" style="height: 0.5em;">
                     <td>{{item.title}}</td>
@@ -50,32 +42,19 @@
                     <td>{{item.created}}</td>
                     <td>{{item.tracker.stars}}</td>
                     
-                    <td style="width:5em"><md-icon ng-click="writeOpen(item)" class="s24" md-svg-src="../images/ic_mode_edit_black_24px.svg"></md-icon></td>
+                    <td style="width:5em"><md-icon class="s24" md-svg-src="../images/ic_mode_edit_black_24px.svg"></md-icon></td>
                     <td>{{item.moderation}}</td>
-                    <td style="width:5em">
-                        <md-icon ng-click="deleteArticle(item)" style="height: 0.5em; width: 0.5em;" md-svg-src="../images/ic_delete_forever_black_24px.svg"></md-icon>
-                    </td>
+                    <td style="width:5em"><md-icon style="height: 0.5em; width: 0.5em;" md-svg-src="../images/ic_delete_forever_black_24px.svg"></md-icon></td>
 
                 </tr>
                 </tbody>
             </table>
 
-            <!--tableau détail ( nbetoile, nb text, nb vue)-->
-            <table id="detail" class="tab-pane fade">
-                <tbody>
-                <tr>
-                    <th>Titre</th>
-                    <th>Catégorie</th>
-                    <th>Etoiles</th>
-                    <th>Vues</th>
-                    <th>Date</th>
-                </tr>
-                <tr></tr>
-                </tbody>
-            </table>
             <!--graph repartition-->
             <div id="repartition" class="tab-pane fade">
                 <p>Graph repartition</p>
+                <p>Cat</p>
+                <p>Fav/cat</p>
             </div>
         </div>
     </div>

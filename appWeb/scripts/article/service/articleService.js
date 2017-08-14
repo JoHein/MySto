@@ -8,9 +8,10 @@ angular.module('myStoriesApp').factory('ArticleService', function($resource) {
   var ArticleService = $resource('/getListArticle/:id', {id:'@id'},
     {
       'query': {method:'get',isArray:false},
-      'save':{method:'post',isArray:false},
+      'save':{method:'post', url:'/saveArticle',isArray:false},
       'update':{method:'update',isArray:false},
       'remove':{method:'delete',isArray:false}
+
     });
     
   return ArticleService;

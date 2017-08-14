@@ -47,6 +47,16 @@ angular
             }
         }
     })
+    .when('/panelAdmin',{
+        templateUrl:'scripts/panelAdmin/paneladmin.html',
+        controller: 'PanelAdminCtrl',
+        requireAuth: true,
+        resolve:{
+            dataUser:function(AuthService){
+                return AuthService();
+            }
+        }
+    })
     .when('/article',{
         templateUrl:'scripts/article/article.html',
         controller:'ArticleCtrl',
