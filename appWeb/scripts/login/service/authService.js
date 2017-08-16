@@ -10,7 +10,10 @@ angular.module('myStoriesApp')
             $log.debug("token dataCook",dataCook);
 
             if(dataCook){
-                
+                if(dataCook.currentUser.admin){
+                    $rootScope.adminAuthenticated=true;
+                }
+            
                 $rootScope.authenticated=true;
                 $rootScope.userLoginData= dataCook;
                 return $rootScope;

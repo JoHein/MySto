@@ -48,7 +48,6 @@ angular.module('myStoriesApp')
                   
                 $scope.propertyName = 'title';
                 $scope.reverse = false;
-                $scope.listArticle = orderBy($scope.listArticle, $scope.propertyName, $scope.reverse);
             },function(error){
                 $log.debug("error get List Article",error);
             });

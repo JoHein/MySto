@@ -50,7 +50,7 @@ angular
     .when('/panelAdmin',{
         templateUrl:'scripts/panelAdmin/paneladmin.html',
         controller: 'PanelAdminCtrl',
-        requireAuth: true,
+        requireAdminAuth: true,
         resolve:{
             dataUser:function(AuthService){
                 return AuthService();

@@ -43,13 +43,16 @@ angular.module('myStoriesApp')
            
            if(data.loginConfirm==="valid"){
                
+               $log.debug("data apres login valid",data);
+               
                 $rootScope.userLoginData= data;
                 $rootScope.authenticated=true;
                 
                 var profilUser={
                     currentUser :{
                         username:data.username, 
-                        emailuser:data.emailuser
+                        emailuser:data.emailuser,
+                        admin:data.admin
                     }
                 };
                 
@@ -57,8 +60,13 @@ angular.module('myStoriesApp')
                 now.setDate(now.getDate() + 1205);
 
                 $cookies.putObject('globals', profilUser,{expires:now});
+                $log.debug("data.admin",data.admin);
+                if(data.admin){
+                   $location.path('/panelAdmin');
+                }else{
+                   $location.path('/panelUser');
+                }
                 
-                $location.path('/panelUser');
            }else{
                 $rootScope.userLoginData = data;
                 $rootScope.authenticated = false;
@@ -69,13 +77,22 @@ angular.module('myStoriesApp')
     };
     
             $scope.toPanelUser = function(){
-                $location.path("/panelUser");
+               var isAdmin = $cookies.getObject('globals');
+               
+                if(isAdmin.currentUser.admin){
+                    $location.path("/panelAdmin");
+                }else{
+                   $location.path("/panelUser");
+                }
             };
     
               $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {              
                var loggedIn= $rootScope.authenticated;
+               var loggInAdmin= $rootScope.adminAuthenticated;
                 if (newUrl.requireAuth && !loggedIn) {
                     // User isn’t authenticated
+                    $location.path("/");
+                }else if(newUrl.requireAdminAuth && !loggInAdmin){
                     $location.path("/");
                 }
             });

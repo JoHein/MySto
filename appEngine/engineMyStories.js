@@ -76,7 +76,7 @@ app.post('/login' ,function(req,res){
         } else {
             if(person.verified){
                 if(person.admin){
-                    return res.redirect('/panelAdmin');
+                    return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email, "admin":person.admin});
                 }else{
                     return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email});
                 }
@@ -316,10 +316,7 @@ app.delete('/getListArticle',function(req,res){
 
 app.put('/getListArticle' ,function(req,res){
     
-    console.log(req.body);
-
     Article.findById(req.body._id, function(err,artModif){
-            console.log(artModif);
 
         if(err){
             return res.status(500).send(err);
@@ -373,9 +370,9 @@ app.put('/getListArticle' ,function(req,res){
 
 //var newSubscriber = new Subscriber({
 // username : 'BlackPawn',
-// password : 'marcel2015',
+// password : bcrypt.hashSync(mongoSanitize.sanitize('!jasmin08'), bcrypt.genSaltSync(8), null),
 // email : 'johei1337@gmail.com',
-// verified : false,
+// verified : true,
 // avatar : null,
 // admin :true,
 // created : new Date(),
