@@ -286,9 +286,9 @@ app.post('/saveArticle',function(req,res){
 
                         newArticle.save(function(err,data){
                             if(data){
-                                res.json({'reponseSauvegarde':'Votre article a été soumis à modération'});
+                               return res.json({'reponseSauvegarde':'Votre article a été soumis à modération'});
                             }else{
-                                res.json({'reponseSauvegarde':'Une erreur c\'est produite. Veuillez reessayer ultérieurement'});
+                               return res.json({'reponseSauvegarde':'Une erreur c\'est produite. Veuillez reessayer ultérieurement'});
                             }
                         });
                     }
@@ -307,37 +307,40 @@ app.delete('/getListArticle',function(req,res){
         if(err){
             console.log("Error delete");
             console.log(err);
-           res.json({'responseDelete':'Erreur lors de la suppression '});
+          return res.json({'responseDelete':'Erreur lors de la suppression '});
         }
-        res.json({'responseDelete':'Votre article '+ article.title  +' a été supprimé'});
+        return res.json({'responseDelete':'Votre article '+ article.title  +' a été supprimé'});
     });
     
 });
 
-app.update('/getListArticle' ,function(req,res){
-    Article.findById(req.query._id, function(err,artModif){
-        
-        if (err) {
-        res.status(500).send(err);
+app.put('/getListArticle' ,function(req,res){
+    
+    console.log(req.body);
+
+    Article.findById(req.body._id, function(err,artModif){
+            console.log(artModif);
+
+        if(err){
+            return res.status(500).send(err);
         }else{
            artModif.title=req.body.title; 
            artModif.category=req.body.category; 
            artModif.content=req.body.content; 
            artModif.source=req.body.source; 
-
+           artModif.created = new Date();
+           artModif.moderation = false;
+                   
            artModif.save(function(err,artUpdate){
                 if (err) {
-                    res.status(500).send(err);
+                   return res.status(500).send(err);
                 }else{
-                    res.json({'reponseSauvegarde':'La modification de votre article a été soumise à modération'});
+                   return res.json({'reponseSauvegarde':'La modification de votre article a été soumise à modération'});
                 }
            })
         }
-        
-        
-        
-        res.json({'reponseSauvegarde':'Votre article a été modifié et soumis à modération'});
     });
+    
 });
 
 

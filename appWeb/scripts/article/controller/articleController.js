@@ -22,6 +22,7 @@ angular.module('myStoriesApp')
         $log.debug("articleToModify", articleToModify);
         if(articleToModify!==null){
             $scope.article = {
+                _id:articleToModify._id,
                 category: articleToModify.category,
                 title: articleToModify.title,
                 content: articleToModify.content,
@@ -37,13 +38,13 @@ angular.module('myStoriesApp')
                 
                 $log.debug("UPDATE ARTICLE");
 
-                ArticleService.update(article,function(data){
+                ArticleService.put(article,function(data){
                     $mdDialog.show(
                         $mdDialog.alert({
                             title: 'Info',
                             textContent: data.reponseSauvegarde,
                             ok: 'Ok'
-                            })
+                        })
                     );
                 });
                 
