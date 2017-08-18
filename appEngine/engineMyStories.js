@@ -230,31 +230,69 @@ app.post('/checkDuplicateDBEmail', function (req, res) {
 
 
 app.get('/getListArticle',function(req,res){
-    
-    Article.find({'email':req.body.email})
-            .populate('postedBy')
-            .populate('tracker.favBy')
-            .exec(function(err,articles){
-                if (err) { throw err; }
+        
+        var userId=null;
+        var isAdmin=null;
+        Subscriber.findOne({'email': mongoSanitize.sanitize(req.query.email)}, '_id admin', function(err,person){
+            
+            console.log(person.admin);
+            userId = person._id;
+            isAdmin = person.admin;
+            
+                if(isAdmin){
+                    Article.find({'moderation':false})
+                      .populate('postedBy')
+                      .populate('tracker.favBy')
+                      .exec(function(err,articles){
+                          if (err) { throw err; }
 
-                    var postArt;
-                    var dataArtSubscriber=[];
-                    for (var i = 0, l = articles.length; i < l; i++) {
-                        
-                      postArt = articles[i];
-                      
-                      console.log('------------------------------');
-                      console.log('Pseudo : ' + postArt.postedBy);
-                      console.log('Texte : ' + postArt.content);
-                      console.log('Date : ' + postArt.created);
-                      console.log('ID : ' + postArt._id);
-                      console.log('------------------------------');
+                              var postArt;
+                              var dataArtSubscriber=[];
+                              for (var i = 0, l = articles.length; i < l; i++) {
 
-                      dataArtSubscriber.push(postArt);
-                    }
-               res.json({'listArtSubscriber':dataArtSubscriber});
+                                postArt = articles[i];
 
-            });
+        //                          console.log('------------------------------');
+        //                          console.log('Pseudo : ' + postArt.postedBy);
+        //                          console.log('Texte : ' + postArt.content);
+        //                          console.log('Date : ' + postArt.created);
+        //                          console.log('ID : ' + postArt._id);
+        //                          console.log('------------------------------');
+
+                                dataArtSubscriber.push(postArt);
+                              }
+                         res.json({'listArtSubscriber':dataArtSubscriber});
+
+                      });
+              
+                }else{
+                    Article.find({'postedBy._id':userId})
+                            .populate('postedBy')
+                            .populate('tracker.favBy')
+                            .exec(function(err,articles){
+                                if (err) { throw err; }
+
+                                    var postArt;
+                                    var dataArtSubscriber=[];
+                                    for (var i = 0, l = articles.length; i < l; i++) {
+
+                                      postArt = articles[i];
+
+            //                          console.log('------------------------------');
+            //                          console.log('Pseudo : ' + postArt.postedBy);
+            //                          console.log('Texte : ' + postArt.content);
+            //                          console.log('Date : ' + postArt.created);
+            //                          console.log('ID : ' + postArt._id);
+            //                          console.log('------------------------------');
+
+                                      dataArtSubscriber.push(postArt);
+                                    }
+                               res.json({'listArtSubscriber':dataArtSubscriber});
+
+                            });
+                }
+        });        
+
 });
 
 app.post('/saveArticle',function(req,res){
@@ -314,6 +352,34 @@ app.delete('/getListArticle',function(req,res){
     
 });
 
+app.put('/setPublished' ,function(req,res){
+    
+    console.log(req.body.articleId);
+    console.log(req.body.email);
+    
+    Subscriber.findOne({'email':mongoSanitize.sanitize(req.body.email)},function(err,person){
+        if(person.admin){
+            Article.findById(req.body.articleId, function(err,artPub){
+
+                if(err){
+                    return res.status(500).send(err);
+                }else{
+                   artPub.moderation = true;
+
+                   artPub.save(function(err,artUpdate){
+                        if (err) {
+                           return res.status(500).send(err);
+                        }else{
+                           return res.json({'responsePublished':'Article publié'});
+                        }
+                   })
+                }
+            });
+        }
+    });
+    
+});
+
 app.put('/getListArticle' ,function(req,res){
     
     Article.findById(req.body._id, function(err,artModif){
@@ -327,7 +393,7 @@ app.put('/getListArticle' ,function(req,res){
            artModif.source=req.body.source; 
            artModif.created = new Date();
            artModif.moderation = false;
-                   
+          
            artModif.save(function(err,artUpdate){
                 if (err) {
                    return res.status(500).send(err);

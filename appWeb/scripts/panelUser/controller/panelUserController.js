@@ -76,31 +76,6 @@ angular.module('myStoriesApp')
         };
         
         
-        
-        $scope.deleteArticle=function(article){
-            
-              var deleteArticle = $mdDialog.confirm()
-               .title('Attention')
-               .textContent('Voulez-vous supprimer cet article : '+ article.title +'? \n')
-               .ariaLabel('Suppression article')
-               .cancel('Annuler')
-               .ok('Confirmer');
-            
-
-            $mdDialog.show(deleteArticle).then(function() {
-                $log.debug("delete Article confirm OK");
-
-                ArticleService.remove(article,function(data){
-                    $log.debug('Removed answer :' + data);
-                    
-                    var index = $scope.listArticle.indexOf(article);
-                    $scope.listArticle.splice(index, 1);
-                });
-                       
-            }, function() {
-                $log.debug("delete Article confirm CANCEL");
-            });
-
-        };
+      
 
     });

@@ -27,24 +27,24 @@
                     <th ng-click="sortBy('category')">Catégorie
                         <span class="sortorder" ng-show="propertyName === 'category'" ng-class="{reverse: reverse}"></span>
                     </th>
+                    <th style="width: 5em;">Username</th>
                     <th ng-click="sortBy('created')">Date
                         <span class="sortorder" ng-show="propertyName === 'created'" ng-class="{reverse: reverse}"></span>
                     </th>
-                    <th style="width: 5em;">Publié</th>
                     <th ng-click="sortBy('moderation')">Publier
                         <span class="sortorder" ng-show="propertyName === 'moderation'" ng-class="{reverse: reverse}"></span>
                     </th>
                     <th>Supprimer</th>
                 </tr>
-                <tr ng-repeat="item in listArticle | orderBy:propertyName:reverse" style="height: 0.5em;">
+                <tr ng-repeat="item in listArticle | orderBy:propertyName:reverse" ng-click="readArticle(item)" style="height: 0.5em;">
                     <td>{{item.title}}</td>
                     <td>{{item.category}}</td>
+                    <td>{{item.postedBy.username}}</td>
                     <td>{{item.created}}</td>
-                    <td>{{item.tracker.stars}}</td>
-                    
-                    <td style="width:5em"><md-icon class="s24" md-svg-src="../images/ic_mode_edit_black_24px.svg"></md-icon></td>
-                    <td>{{item.moderation}}</td>
-                    <td style="width:5em"><md-icon style="height: 0.5em; width: 0.5em;" md-svg-src="../images/ic_delete_forever_black_24px.svg"></md-icon></td>
+                    <td ng-click="setIsPublished(item)"><button>{{item.moderation}}</button></td>
+                    <td style="width:5em">
+                        <md-icon ng-click="deleteArticle(item)" style="height: 0.5em; width: 0.5em;" md-svg-src="../images/ic_delete_forever_black_24px.svg"></md-icon>
+                    </td>
 
                 </tr>
                 </tbody>
