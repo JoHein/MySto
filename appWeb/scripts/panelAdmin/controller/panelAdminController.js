@@ -1,5 +1,5 @@
 angular.module('myStoriesApp')
-    .controller('PanelAdminCtrl', function ( $scope ,$location, $log,ArticleService,$rootScope, $cookies, dataUser, $mdDialog ) {
+    .controller('PanelAdminCtrl', function ( $scope ,$location, $log,ArticleService,$rootScope, $cookies, dataUser, $mdDialog, GetArticleDetail ) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -11,7 +11,8 @@ angular.module('myStoriesApp')
             '$rootScope',
             '$cookies',
             'dataUser',
-            '$mdDialog'
+            '$mdDialog',
+            'GetArticleDetail'
         ];
         
         $scope.listArticle=null;
@@ -99,6 +100,10 @@ angular.module('myStoriesApp')
             
         };
         
+        $scope.readArticle = function(item){
+            GetArticleDetail.setProperty(item);
+            $location.path('/article');        
+        };
           
         $scope.deleteArticle=function(article){
             

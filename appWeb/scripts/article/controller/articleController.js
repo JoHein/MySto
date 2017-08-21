@@ -1,75 +1,68 @@
 angular.module('myStoriesApp')
-    .controller('ArticleCtrl', function ($scope,$location, $log,dataUser,ArticleService,$window,dataUser, $mdDialog, GetArticleDetail ) {
+    .controller('ArticleCtrl', function ($scope,$location, $log,ArticleService,$window, $mdDialog, GetArticleDetail, $rootScope ) {
         this.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
             'Karma',
             '$scope',
             '$location',
-            '$log',
-            'dataUser',
+            '$log',            
             'ArticleService',
-            '$window',
-            'dataUser',
+            '$window',            
             '$mdDialog',
-            'GetArticleDetail'
+            'GetArticleDetail',
+            '$rootScope'
         ];
         
-        var articleToModify = GetArticleDetail.getProperty();
+        var articleToModerate = GetArticleDetail.getProperty();
         //si _id different de null
         // update
         // set modification to false
-        $log.debug("articleToModify", articleToModify);
-        if(articleToModify!==null){
+        $log.debug("articleToModerate", articleToModerate);
+        if(articleToModerate!==null){
             $scope.article = {
-                _id:articleToModify._id,
-                category: articleToModify.category,
-                title: articleToModify.title,
-                content: articleToModify.content,
-                source:articleToModify.source
+                _id:articleToModerate._id,
+                category: articleToModerate.category,
+                title: articleToModerate.title,
+                content: articleToModerate.content,
+                source:articleToModerate.source,
+                username:articleToModerate.postedBy.username
             }; 
         };
-
         
-        $scope.soumettre=function(article){
+             
+        $scope.setIsPublished=function(){
             
-            article.emailuser=dataUser.userLoginData.currentUser.emailuser;
-            if(articleToModify!==null){
+               var publishArt = $mdDialog.confirm()
+               .title('Validation')
+               .textContent('Valider cet article : '+ articleToModerate.title +' ' +articleToModerate.postedBy.username + '? \n')
+               .ariaLabel('Validation article')
+               .cancel('Annuler')
+               .ok('Confirmer');
+            
+            $mdDialog.show(publishArt).then(function() {
+                $log.debug("PUBLISHED confirm OK", articleToModerate._id);
                 
-                $log.debug("UPDATE ARTICLE");
-
-                ArticleService.put(article,function(data){
-                    $mdDialog.show(
-                        $mdDialog.alert({
-                            title: 'Info',
-                            textContent: data.reponseSauvegarde,
-                            ok: 'Ok'
-                        })
-                    );
+                ArticleService.setPublished({articleId:articleToModerate._id,email:$rootScope.userLoginData.currentUser.emailuser},function(data){
+                    $log.debug('Published answer :', data);
+                        history.back();
+                        
+//                    var index = $scope.listArticle.indexOf(article);
+//                    $scope.listArticle.splice(index, 1);
+                },function(err){
+                    $log.debug("Erreur publication",err);
                 });
-                
-            }else{
-                ArticleService.save(article,function(data){
-                $log.debug("data engineMyStorie",data);
-                                   
-                    $mdDialog.show(
-                        $mdDialog.alert({
-                            title: 'Info',
-                            textContent: data.reponseSauvegarde,
-                            ok: 'Ok'
-                            })
-                    );
-
-                });
-            }
-        
+                       
+            }, function() {
+                $log.debug("published Article confirm CANCEL");
+            });
             
         };
-        
-        
-        
+
+
         $scope.goBack=function(){
-          $location.path('/panelUser');  
+//          $location.path('/panelUser');  
+          history.back();
         };
 
 });

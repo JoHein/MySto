@@ -9,14 +9,17 @@
         
         <p>ck editor plus voir si edition</p>
         <p>Comment stocker les images (imgur?)</p>
-        <button ng-click="goBack()">Revenir</button>
-        <form id="formcontainer">
-            <label>Catégorie<input type="search" ng-model="article.category" /></label><br />
-            <label>Titre <input type="text" ng-model="article.title" /></label><br />
-            <textarea  rows="4" cols="50" ng-model="article.content" placeholder="Votre texte"> </textarea><br />
-            <label>Sources <input type="text" ng-model="article.source"/></label><br />
-            <input type="submit" ng-click="soumettre(article)" value="Soumettre"/>
-        </form>
+        <div>
+            <h4>{{article.title}}</h4>
+            <p>By : {{article.username}}</p>
+            <p>{{article.category}}</p>
+
+            <p>{{article.content}}</p>
+            <i>{{article.source}}</i>
+        </div>
+        <div>
+            <button ng-show="" ng-click="setIsPublished()">Publish</button>
+        </div>
     </div>
 </body>
 </html>

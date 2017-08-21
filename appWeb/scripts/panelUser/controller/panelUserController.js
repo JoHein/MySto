@@ -66,7 +66,7 @@ angular.module('myStoriesApp')
         $scope.writeOpen = function(article){
             
             GetArticleDetail.setProperty(article);
-            $location.path('/article');
+            $location.path('/writearticle');
             
         };
         

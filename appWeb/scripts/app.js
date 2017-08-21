@@ -57,15 +57,19 @@ angular
             }
         }
     })
-    .when('/article',{
-        templateUrl:'scripts/article/article.html',
-        controller:'ArticleCtrl',
+    .when('/writearticle',{
+        templateUrl:'scripts/article/writearticle.html',
+        controller:'WriteArticleCtrl',
         requireAuth: true,
         resolve:{
             dataUser:function(AuthService){
                 return AuthService();
             }
         }
+    })
+    .when('/article',{
+        templateUrl:'scripts/article/article.html',
+        controller:'ArticleCtrl'
     })
     .when('/emailverification',{
         templateUrl:'scripts/emailverification/emailverification.html',
