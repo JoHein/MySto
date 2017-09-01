@@ -1,6 +1,8 @@
 //require express framework
 var express = require('express');
 var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+
 var http = require('http');
 var path = require('path');
 var request = require('request');
@@ -30,19 +32,15 @@ var Article = require('./models/article');
 
 
 // config
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs', 'html');
 app.set('views', '../appWeb/scripts');
 app.set('port', process.env.PORT || 8081);
 
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParser.urlencoded({extended: false}));
 
-
-
-
 app.use(morgan('combined')); // Active le middleware de logging
 
-app.use(session({secret: "marcelproust", resave: false, saveUninitialized: true}));
 
 app.use(express.static('../appWeb')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
 app.use('/partials', express.static('../appWeb/partials')); // Indique que le dossier /public contient des fichiers statiques (middleware chargé de base)
@@ -58,28 +56,62 @@ logger.info('server start');
 
 console.log(__dirname);
 
+
+app.use(session({
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
+  name: 'sessionMysto',
+  secret: 'oqhfgiqfg4864561dqfonnvb',
+  httpOnly: true,
+  secure: true,
+  resave: true,
+  saveUninitialized: true,
+  cookie: { maxAge: 36000000000 }
+}));
+
+app.use(function(req, res, next) {
+    
+  if (req.session && req.session.subscriber) {
+    Subscriber.findOne({ email: req.session.subscriber.email }, function(err, subscriber) {
+      if (subscriber) {
+        req.subscriber = subscriber;
+        delete req.subscriber.password; // delete the password from the session
+        req.session.subscriber = subscriber;  //refresh the session value
+        res.locals.subscriber = subscriber;
+      }
+      // finishing processing the middleware and run the route
+      next();
+    });
+  } else {
+    next();
+  }
+
+});
+
+
 app.get('/', function (req, res) {
     res.render('index');
 });
 
 app.post('/login' ,function(req,res){
-    
-    
+
     var emailUser = mongoSanitize.sanitize(req.body.emailUser);
 
      Subscriber.findOne({'email':emailUser}, function (err, person) {
          
-         var emailCheck = bcrypt.compareSync(req.body.passwordUser,person.password);
+        var emailCheck = bcrypt.compareSync(req.body.passwordUser,person.password);
 
         if (!emailCheck) {
             res.json({"loginConfirm": "notValid"});
         } else {
             if(person.verified){
-                if(person.admin){
-                    return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email, "admin":person.admin});
-                }else{
-                    return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email});
-                }
+                
+               req.session.subscriber = person;
+               if(person.admin){
+                    return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email, "toPage":'/panelAdmin'});
+               }else{
+                    return res.json({"loginConfirm": "valid", "username": person.username, "emailuser": person.email,"toPage":'/panelUser'});
+               }
+                
             }else{
                return res.json({"loginConfirm": "notVerified", "username": person.username, "emailuser": person.email});
             }
@@ -91,6 +123,42 @@ app.post('/login' ,function(req,res){
     });
     
 });
+
+app.get('/login',function(req,res){
+    
+    var emailUser = mongoSanitize.sanitize(req.query.emailUser);
+
+     Subscriber.findOne({'email':emailUser}, function (err, person) {
+         if(person.admin){
+            res.json({"toPage":'/panelAdmin'}); 
+         }else{
+            res.json({"toPage":'/panelUser'});
+         }
+     });
+});
+
+app.get('/authenticated',function(req,res){
+
+    console.log("req.session.subscriber in authenticated");
+    console.log(req.session.subscriber);
+
+    if(req.session.subscriber !== undefined){
+            console.log("req.session.subscriber identified");
+
+        if(req.session.subscriber.admin){
+           res.json({"authspecial":true,'email':req.session.subscriber.email, 'username':req.session.subscriber.username});   
+        }else{
+           res.json({"auth":true,'email':req.session.subscriber.email, 'username':req.session.subscriber.username});   
+        }
+    }
+});
+
+app.get('/logout', function(req, res) {
+  req.session.reset();
+  clearCookie('sessionMysto');
+  res.redirect('/');
+});
+
 
 //Enregistrement base de donnée
 app.post('/subscriber', function (req, res) {

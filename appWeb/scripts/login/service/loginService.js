@@ -8,6 +8,7 @@ angular.module('myStoriesApp').factory('LoginService', function($resource) {
   var LoginService = $resource('/login/:id', {id:'@id'},
     {
       'query': {method:'get',isArray:false},
+      'authenticated': {url:'/authenticated', method:'get',isArray:false},
       'tsop':{method:'post',isArray:false},
       'update':{method:'update',isArray:false},
       'remove':{method:'delete',isArray:false}

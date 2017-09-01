@@ -21,11 +21,14 @@ angular.module('myStoriesApp')
 //
 //        $log.debug("test cookie PANEL",$cookies.getObject('globals') );
 //        $log.debug("test dataUser",dataUser);
+//            $log.debug("rootScope panelUser : ",$rootScope.userLoginData.currentUser);
+
 
         getArticlesUser();
         function getArticlesUser(){
+                        $log.debug("rootScope panelUser : ",$rootScope.userLoginData.currentUser.username);
 
-            ArticleService.query({email:$rootScope.userLoginData.currentUser.emailuser},function(data){
+            ArticleService.query({email:$rootScope.userLoginData.emailuser},function(data){
                 $log.debug("retour de l'article dans le controller JS: ", data.listArtSubscriber );
                 
                 angular.forEach(data.listArtSubscriber, function(value,key){

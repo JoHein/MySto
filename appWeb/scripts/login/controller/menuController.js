@@ -25,19 +25,12 @@ angular.module('myStoriesApp')
     };
     
             $log.debug("loginData");
-            
-
-
             $log.debug("test service Auth",AuthService());
-     
 
-    
     $scope.loginUser=function(logindata){
         $log.debug("loginData", logindata);
-        
-    
+
         LoginService.tsop({emailUser:logindata.email,passwordUser:logindata.password},function(data){
-            //store reponse in cookie to browse website
 
            $log.debug("data retour login",data);
            
@@ -51,22 +44,16 @@ angular.module('myStoriesApp')
                 var profilUser={
                     currentUser :{
                         username:data.username, 
-                        emailuser:data.emailuser,
-                        admin:data.admin
+                        emailuser:data.emailuser
                     }
-                };
+                    };
+                $rootScope.userLoginData= profilUser;
+                $rootScope.authenticated=true;
                 
-                var now = new Date();
-                now.setDate(now.getDate() + 1205);
+                $log.debug("data apres login valid",data);
 
-                $cookies.putObject('globals', profilUser,{expires:now});
-                $log.debug("data.admin",data.admin);
-                if(data.admin){
-                   $location.path('/panelAdmin');
-                }else{
-                   $location.path('/panelUser');
-                }
-                
+                $location.path(data.toPage);
+
            }else{
                 $rootScope.userLoginData = data;
                 $rootScope.authenticated = false;
@@ -77,17 +64,19 @@ angular.module('myStoriesApp')
     };
     
             $scope.toPanelUser = function(){
-               var isAdmin = $cookies.getObject('globals');
-               
-                if(isAdmin.currentUser.admin){
-                    $location.path("/panelAdmin");
-                }else{
-                   $location.path("/panelUser");
-                }
+                $log.debug("$rootScope.userLoginData",$rootScope.userLoginData);
+
+                LoginService.query({emailUser:$rootScope.userLoginData.currentUser.emailuser},function(data){
+                    $location.path(data.toPage);
+                });
+
             };
     
-              $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {              
-               var loggedIn= $rootScope.authenticated;
+            $scope.$on('$routeChangeStart', function(angularEvent, newUrl) {     
+              $log.debug("$rootScope.authenticated",$rootScope.authenticated);
+              $log.debug("$rootScope.adminAuthenticated",$rootScope.adminAuthenticated);
+
+               var loggedIn= $rootScope.authenticated;               
                var loggInAdmin= $rootScope.adminAuthenticated;
                 if (newUrl.requireAuth && !loggedIn) {
                     // User isn’t authenticated
@@ -96,5 +85,26 @@ angular.module('myStoriesApp')
                     $location.path("/");
                 }
             });
+      
+      checkSession();
+      function checkSession(){
+          
+          AuthService();
+          
+//        LoginService.authenticated(function(data){
+//            $log.debug("auth front side : ",data);
+//                var  profilUser ={ 
+//                        currentUser :{
+//                            username:data.username, 
+//                            emailuser:data.email
+//                        }
+//                    };
+//                 $log.debug("auth front side : ",profilUser);
+//
+//            $rootScope.userLoginData = profilUser;
+//                 $log.debug("auth front side : ",$rootScope.userLoginData);
+//
+//        });
 
+      };
   });
