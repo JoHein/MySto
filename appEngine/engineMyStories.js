@@ -440,7 +440,7 @@ app.put('/setPublished' ,function(req,res){
                         }else{
                            return res.json({'responsePublished':'Article publié'});
                         }
-                   })
+                   });
                 }
             });
         }
@@ -468,7 +468,7 @@ app.put('/getListArticle' ,function(req,res){
                 }else{
                    return res.json({'reponseSauvegarde':'La modification de votre article a été soumise à modération'});
                 }
-           })
+           });
         }
     });
     

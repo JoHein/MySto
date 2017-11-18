@@ -1,1 +1,278 @@
-/* You can add global styles to this file, and also import other style files */
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding: 0;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.loginscript{
+    float: right;
+    width: 20%;
+}
+
+.inscription{
+  margin-top: 0.8em;
+  margin-right: 1em;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.5em;
+  border-style: none;
+  width: 35%;
+}
+
+.login{
+  margin-top: 0.8em;
+  margin-right: 1em;
+  display: inline-block;
+  position: relative;
+  border-radius: 0.5em;
+  border-style: none;
+  width: 35%;
+}
+
+.iconConnexion{
+  border-radius: 50%;
+
+  width: 2.5em;
+  height: 2.5em;
+
+  background: white;
+  background-image:  url('./assets/images/guest.png');
+  background-size: 1.6em 2.3em;
+  background-position-x: 0.3em;
+  background-position-y: 0.2em;
+  background-repeat: no-repeat;
+  border: 0.15em solid #666;
+  color: #666;
+
+  font: 32px Arial, sans-serif;
+
+  margin-top: 0.2em;
+  display: block;
+  position: absolute;
+  text-align: right;
+  right:0.5em;
+}
+
+.iconConnexion img{
+  size: 2em;
+  position: relative;
+  z-index: 5;
+}
+
+.profil{
+  border: 1px solid black;
+  float: left;
+  height: 15em;
+  width: 12em;
+}
+.readRest{
+  float: right;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.indexIntroText{
+  height: 15em;
+  float: none;
+  padding-left: 13.5em;
+  padding-right: 1em;
+  width: 100%;
+}
+
+.numberOfStars{
+  float: left;
+  width: 6em;
+  height: 2em;
+  position: relative;
+  background: dimgrey;
+  right: 12em;
+  /* clear: both; */
+  top: 13em;
+  padding: 0.2em;
+
+}
+
+.numberOfStars img{
+  height: 1.6em;
+  position: relative;
+  z-index: 5;
+}
+
+.numberOfTexts{
+  float: left;
+  width: 6em;
+  height: 2em;
+  position: relative;
+  background: lightgrey;
+  right: 12em;
+  /* clear: both; */
+  top: 13em;
+  padding: 0.2em;
+}
+
+.numberOfTexts img{
+  height: 1.6em;
+  position: relative;
+  z-index: 5;
+}
+
+.my-messages {
+  color: #a94442;
+  background-color: rgba(236, 197, 197, 0.71);
+  border-color: #ebccd1;
+  padding: 0.3em;
+  position: absolute;
+  z-index:5;
+
+}
+
+.my-messages.ng-inactive {
+      opacity:0;
+}
+
+.my-messages.ng-active {
+      opacity:1;
+
+                        }
+
+.my-messages.ng-enter, .my-messages.ng-leave {
+
+}
+
+.my-messages.ng-enter,
+.my-messages.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.my-messages.ng-leave,
+.my-messages.ng-enter.ng-enter-active {
+  opacity:1;
+
+}
+
+.loginFormExpand{
+    position:absolute;
+    top: 3.5em;
+    right: 2em;
+    background: black;
+}
+
+.loginFormExpand form{
+    padding: 0.5em;
+}
+
+.loginFormExpand input{
+    display: block;
+    margin-bottom: 0.2em;
+}
+
+
+.loginFormExpand button{
+    float: right;
+    margin-bottom: 0.2em;
+
+}
+
+svg{
+    width: 100%;
+    height: 18%;
+    cursor: pointer;
+}
+
+#general th{
+    padding-right: 3em;
+}
+
+#general td{
+    padding-right: 2em;
+}
+
+.msgErrorLogin{
+    top: 5em;
+    position: absolute;
+    right: 17em;
+    background-color: red;
+    padding: 1em;
+}
+
+.glyphicon-user{
+    background-color: white;
+    top: 0.1em;
+    font-size: 3.2em;
+    right: 2em;
+    position: absolute;
+}
+
+.md-icon svg{
+
+    pointer-events: none;
+    display: block;
+    height: 30%;
+    width: 32%;
+    cursor: pointer;
+
+}
+
+.sortorder:after{
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  content: "\e155";
+  position: absolute;
+}
