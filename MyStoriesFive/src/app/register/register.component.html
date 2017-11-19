@@ -1,3 +1,95 @@
-<p>
-  register works!
-</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+</head>
+<body>
+  <div class="container" >
+    <div class="row centered-form">
+      <div class="col-xs-12 col-sm-8 col-md-5 col-sm-offset-2 col-md-offset-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Inscrivez-vous pour écrire vos histoires</h3>
+          </div>
+          <div class="panel-body">
+
+              <form role="form" name="rgtUser" ng-submit="registerUser()">
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+
+                    <input required type="text" name="pseudo" ng-model="pseudo" id="pseudo" ng-minlength="3" ng-maxlength="20" ng-model-options="{ debounce :  800, updateOn : 'blur' }"
+                           check-duplicate-d-b="pseudo" class="form-control input-sm" placeholder="Pseudo" >
+                    <div id="message" ng-if="rgtUser.pseudo.$error" ng-messages="rgtUser.pseudo.$error" ng-messages-multiple="false" class="my-messages" role="alert">
+                          <div ng-message="minlength" >Pseudo trop court</div>
+                          <div ng-message="maxlength" >Pseudo trop long</div>
+                          <div ng-message="pseudo">Ce pseudo n'est pas disponible</div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <input type="file" name="avatar " ng-model="avatar" id="avatar" class="form-control input-sm" placeholder="avatar">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input required type="email" name="email1" ng-model="email1"  ng-minlength="10" id="email1" ng-model-options="{ debounce :  800, updateOn : 'blur' }"
+                       check-duplicate-d-b-email="email1" class="form-control input-sm" placeholder="Email Adresse">
+                    <div ng-if="rgtUser.email1.$error" ng-messages="rgtUser.email1.$error" ng-messages-multiple="false" class="my-messages" >
+                        <div ng-message="email">Ce n'est pas un email valide</div>
+                        <div ng-message="emaildispo">Cet email n'est pas disponible</div>
+
+                    </div>
+              </div>
+
+
+              <div class="form-group">
+                <input required type="email" name="email2" id="email2" ng-model="email2" ng-model-options="{ debounce :  800, updateOn : 'blur' }" check-same-directive="email1"  class="form-control input-sm" placeholder="Confirmer Email Adresse">
+                <div ng-if="rgtUser.email2.$dirty" ng-messages="rgtUser.email2.$error" ng-messages-multiple="false" class="my-messages" >
+                  <div ng-message="email">Ce n'est pas un email valide</div>
+                  <div ng-message="checkerrormatch">L'email ne correspond pas!</div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <input required type="password" name="password" ng-model="password" id="password" ng-minlength="3" ng-maxlength="20" class="form-control input-sm"
+                           placeholder="Mot de passe"/>
+                  </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                  <div class="form-group">
+                    <input  type="password" name="password2" ng-model="password2" ng-model-options="{ debounce :  800, updateOn : 'blur' }"
+                           id="password2" ng-minlength="4" ng-maxlength="20" check-same-directive="password" required class="form-control input-sm" placeholder="Confirmer Mot de Passe"/>
+
+                    <div ng-if="rgtUser.password2.$touched" ng-messages="rgtUser.password2.$error"  ng-messages-multiple="false" class="my-messages">
+                      <div ng-message="minlength">Mot de passe trop court </div>
+                      <div ng-message="maxlength">Mot de passe trop long</div>
+                      <div  ng-message="checkerrormatch">Le mot de passe ne correspond pas</div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+
+                <div vc-recaptcha theme="'light'" key="model.key" on-create="setWidgetId(widgetId)" on-success="setResponse(response)" on-expire="cbExpiration()"></div>
+
+              <input type="submit" value="Valider" ng-disabled="rgtUser.$invalid" class="btn btn-info btn-block">
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</body>
+</html>
