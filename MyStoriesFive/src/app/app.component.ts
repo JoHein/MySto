@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { Router } from '@angular/router';
 
+import { LoginService } from './login/login.service';
+import { LoginModel } from './login/login.model';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +13,13 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-constructor(public router: Router) {}
+constructor(public router: Router, private loginService: LoginService) {}
 
   title = 'app';
   authenticated = false;
   loginFormExpand = false;
+  loginFormModel = LoginModel;
+
 
   expandLogin(loginFormExpand) {
     if (loginFormExpand) {
@@ -27,9 +33,17 @@ constructor(public router: Router) {}
     this.router.navigate(['/register']);
   }
 
-  // redirect on click  to registerUser
 
   // AuthService call on INIT
+
+  loginUser(loginForm: LoginModel): void {
+    console.log("message", loginForm );
+    loginForm.emailuser = loginForm.emailuser.trim();
+     this.loginService.loginUser(loginForm)
+     .subscribe(result => {
+       console.log( 'result for loginUser', result );
+     });
+  }
 
   // Login Service {emailUser, password}
   // if data valid

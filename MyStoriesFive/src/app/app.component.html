@@ -26,10 +26,10 @@
             <div class="glyphicon glyphicon-user" (click)="toPanelUser()" style="background-color: white"></div>
         </div>
       <div *ngIf="!authenticated" class="loginFormExpand">
-          <form *ngIf="loginFormExpand" #loginForm="ngForm">
-              <input type="text" name="email" [(ngModel)]="logindata.email" placeholder="Email"/>
-              <input type="password" name="password" [(ngModel)]="logindata.password" placeholder="mot de passe"/>
-              <button type="submit" (click)="loginUser(logindata)">Valider</button>
+          <form *ngIf="loginFormExpand" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm.value)">
+              <input type="text" id="emailuser" name="emailuser" [(ngModel)]="emailuser" placeholder="Email"/>
+              <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="mot de passe"/>
+              <button type="submit" >Valider</button>
           </form>
       </div>
       <!-- <div *ngIf="userLoginData.loginConfirm==='notVerified'" class='msgErrorLogin'>
