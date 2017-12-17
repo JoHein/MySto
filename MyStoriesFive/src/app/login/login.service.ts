@@ -14,8 +14,8 @@ const httpOptions = {
 @Injectable()
 export class LoginService {
 
-  private authenticatedUrl = '/authenticated';
-  private loginInfo = '/login';
+  private authenticatedUrl = 'http://localhost:8081/authenticated';
+  private loginInfo = 'http://localhost:8081/login';
 
   constructor(private http: HttpClient) { }
 
@@ -29,7 +29,8 @@ export class LoginService {
 
 
   loginUser(loginModel: LoginModel): Observable<any> {
-    return this.http.post<any>(this.loginInfo, {loginModel})
+    console.log("calling");
+    return this.http.post<any>(this.loginInfo, {emailUser: loginModel.emailuser, passwordUser: loginModel.password})
     .pipe(
       catchError( this.handleError<any>('loginUser') )
     );

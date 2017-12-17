@@ -37,7 +37,6 @@ constructor(public router: Router, private loginService: LoginService) {}
   // AuthService call on INIT
 
   loginUser(loginForm: LoginModel): void {
-    console.log("message", loginForm );
     loginForm.emailuser = loginForm.emailuser.trim();
      this.loginService.loginUser(loginForm)
      .subscribe(result => {

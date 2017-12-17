@@ -47,14 +47,20 @@ app.use('/partials', express.static('../appWeb/partials')); // Indique que le do
 
 logger.info('server start');
 //Pour savoir where the fuck j'ai mis mon required
-//logger.info(require);
+//logger.info(app);
 
 //Routing
 //var routes = require('../appWeb/index.ejs');
 
 //app.use('/',routes);
 
-console.log(__dirname);
+//console.log(__dirname);
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 
 app.use(session({
@@ -86,6 +92,8 @@ app.use(function(req, res, next) {
   }
 
 });
+
+
 
 
 app.get('/', function (req, res) {
