@@ -1,3 +1,83 @@
-<p>
-  panel-user works!
-</p>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div ng-cloak="">
+    <!--    <h3>Bienvenue {{userLoginData.currentUser.username}}</h3> -->
+        <button ng-click="writeOpen(null)">Ecrire</button>
+        <button ng-click="updateProfil()">Modifier le profil</button>
+        <button ng-click="discUser()">Déconnexion</button>
+
+    </div>
+    <div class="container">
+
+        <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" data-target="#general">Général</a></li>
+        <li><a data-toggle="tab" data-target="#detail">Détail</a></li>
+        <li><a data-toggle="tab" data-target="#repartition">Répartition</a></li>
+    </ul>
+        <div class="tab-content">
+
+    <!-- tableau général d'édition-->
+            <table id="general" class="tab-pane fade in active">
+                <tbody>
+                <tr>
+                    <th ng-click="sortBy('title')">Titre
+                        <span class="sortorder" ng-show="propertyName === 'title'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th ng-click="sortBy('category')">Catégorie
+                        <span class="sortorder" ng-show="propertyName === 'category'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th ng-click="sortBy('created')">Date
+                        <span class="sortorder" ng-show="propertyName === 'created'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th style="width: 8em;" ng-click="sortBy('tracker.stars')">Favoris
+                        <span class="sortorder" ng-show="propertyName === 'tracker.stars'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th style="width: 5em;">Editer</th>
+                    <th ng-click="sortBy('moderation')">Publier
+                        <span class="sortorder" ng-show="propertyName === 'moderation'" ng-class="{reverse: reverse}"></span>
+                    </th>
+                    <th>Supprimer</th>
+
+                </tr>
+                <tr *ngFor="let item of listArticle" >
+                    <td>{{item.title}}</td>
+                    <td>{{item.category}}</td>
+                    <td>{{item.created}}</td>
+                    <td>{{item.stars}}</td>
+
+                    <td style="width:5em"><mat-icon (click) ="writeOpen(item)" class="s24" svgIcon="../images/ic_mode_edit_black_24px.svg"></mat-icon></td>
+                    <td>{{item.moderation}}</td>
+                    <td style="width:5em">
+                        <mat-icon (click) ="deleteArticle(item)" style="height: 0.5em; width: 0.5em;" svgIcon="../images/ic_delete_forever_black_24px.svg"></mat-icon>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <!--tableau détail ( nbetoile, nb text, nb vue)-->
+            <table id="detail" class="tab-pane fade">
+                <tbody>
+                <tr>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Etoiles</th>
+                    <th>Vues</th>
+                    <th>Date</th>
+                </tr>
+                <tr></tr>
+                </tbody>
+            </table>
+            <!--graph repartition-->
+            <div id="repartition" class="tab-pane fade">
+                <p>Graph repartition</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

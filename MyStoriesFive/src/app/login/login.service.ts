@@ -28,8 +28,8 @@ export class LoginService {
   }
 
 
-  loginUser(loginModel: LoginModel): Observable<any> {
-    console.log("calling");
+  loginUser(loginModel: LoginModel): Observable<LoginModel> {
+    console.log("calling Login");
     return this.http.post<any>(this.loginInfo, {emailUser: loginModel.emailuser, passwordUser: loginModel.password})
     .pipe(
       catchError( this.handleError<any>('loginUser') )

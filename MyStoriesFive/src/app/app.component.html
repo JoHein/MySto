@@ -27,10 +27,16 @@
         </div>
       <div *ngIf="!authenticated" class="loginFormExpand">
           <form *ngIf="loginFormExpand" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm.value)">
-              <input type="text" id="emailuser" name="emailuser" [(ngModel)]="emailuser" placeholder="Email"/>
-              <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="mot de passe"/>
+              <input type="text" id="emailuser" name="emailuser" [(ngModel)]="loginForm.emailuser" placeholder="Email"/>
+              <input type="password" id="password" name="password" [(ngModel)]="loginForm.password" placeholder="mot de passe"/>
               <button type="submit" >Valider</button>
           </form>
+          <div *ngIf="userData?.loginConfirm ==='notVerified'" class='msgErrorLogin'>
+            <p>L'email de cet utilisateur n'a pas été vérifié</p>
+          </div>
+          <div *ngIf="userData?.loginConfirm==='notValid'" class='msgErrorLogin'>
+                <p>Cet utilisateur n'éxiste pas</p>
+          </div>
       </div>
       <!-- <div *ngIf="userLoginData.loginConfirm==='notVerified'" class='msgErrorLogin'>
             <p>L'email de cet utilisateur n'a pas été vérifié</p>

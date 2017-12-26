@@ -22,7 +22,7 @@ var app = express();
 
 //Connect to mongoDB
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/myproject');
+mongoose.connect('mongodb://localhost:27017/myproject', { useMongoClient: true });
 
 //require model User
 var Subscriber = require('./models/subscriber');
@@ -105,11 +105,16 @@ app.post('/login' ,function(req,res){
     var emailUser = mongoSanitize.sanitize(req.body.emailUser);
 
      Subscriber.findOne({'email':emailUser}, function (err, person) {
+         if(person===null){
+             return res.json({"loginConfirm": "notValid"});
+         }
+                  console.log("console login",person);
+
          
         var emailCheck = bcrypt.compareSync(req.body.passwordUser,person.password);
 
         if (!emailCheck) {
-            res.json({"loginConfirm": "notValid"});
+            return res.json({"loginConfirm": "notValid"});
         } else {
             if(person.verified){
                 
@@ -307,11 +312,14 @@ app.post('/checkDuplicateDBEmail', function (req, res) {
 
 app.get('/getListArticle',function(req,res){
         
-        var userId=null;
-        var isAdmin=null;
+        var userId = null;
+        var isAdmin = null;
+        console.log(req.query.email);
         Subscriber.findOne({'email': mongoSanitize.sanitize(req.query.email)}, '_id admin', function(err,person){
-            
-            console.log(person.admin);
+
+                    console.log(person._id);
+                    console.log(person.admin);
+
             userId = person._id;
             isAdmin = person.admin;
             
@@ -342,7 +350,11 @@ app.get('/getListArticle',function(req,res){
                       });
               
                 }else{
-                    Article.find({'postedBy._id':userId})
+                    
+                    console.log(userId);
+                    console.log(isAdmin);
+
+                    Article.find({'postedBy':userId})
                             .populate('postedBy')
                             .populate('tracker.favBy')
                             .exec(function(err,articles){
@@ -354,12 +366,12 @@ app.get('/getListArticle',function(req,res){
 
                                       postArt = articles[i];
 
-            //                          console.log('------------------------------');
-            //                          console.log('Pseudo : ' + postArt.postedBy);
-            //                          console.log('Texte : ' + postArt.content);
-            //                          console.log('Date : ' + postArt.created);
-            //                          console.log('ID : ' + postArt._id);
-            //                          console.log('------------------------------');
+                                      console.log('------------------------------');
+                                      console.log('Pseudo : ' + postArt.postedBy);
+                                      console.log('Texte : ' + postArt.content);
+                                      console.log('Date : ' + postArt.created);
+                                      console.log('ID : ' + postArt._id);
+                                      console.log('------------------------------');
 
                                       dataArtSubscriber.push(postArt);
                                     }

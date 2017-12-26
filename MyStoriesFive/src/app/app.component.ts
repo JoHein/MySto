@@ -19,7 +19,7 @@ constructor(public router: Router, private loginService: LoginService) {}
   authenticated = false;
   loginFormExpand = false;
   loginFormModel = LoginModel;
-
+  userData;
 
   expandLogin(loginFormExpand) {
     if (loginFormExpand) {
@@ -40,9 +40,26 @@ constructor(public router: Router, private loginService: LoginService) {}
     loginForm.emailuser = loginForm.emailuser.trim();
      this.loginService.loginUser(loginForm)
      .subscribe(result => {
-       console.log( 'result for loginUser', result );
+      this.userData = result as LoginModel;
+        if (this.userData.loginConfirm === 'valid') {
+          // mettre en session l'email de l'user;
+          localStorage.setItem('emailuser', this.userData.emailuser);
+          if (this.userData.toPage === '/panelUser') {
+            this.router.navigate(['/panelUser']);
+          } else {
+            this.router.navigate(['/panelAdmin']);
+          }
+        }
+        if (this.userData.loginConfirm === 'notValid') {
+
+        }
+        if (this.userData.loginConfirm === 'notVerified') {
+
+        }
      });
   }
+
+
 
   // Login Service {emailUser, password}
   // if data valid
