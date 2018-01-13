@@ -5,14 +5,15 @@
     <title></title>
 </head>
 <body>
-    <div ng-cloak="">
+    <div class="container">
+
+    <div>
     <!--    <h3>Bienvenue {{userLoginData.currentUser.username}}</h3> -->
-        <button ng-click="writeOpen(null)">Ecrire</button>
-        <button ng-click="updateProfil()">Modifier le profil</button>
-        <button ng-click="discUser()">Déconnexion</button>
+        <button (click)="writeOpen(null)">Ecrire</button>
+        <button (click)="updateProfil()">Modifier le profil</button>
+        <button (click)="discUser()">Déconnexion</button>
 
     </div>
-    <div class="container">
 
         <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" data-target="#general">Général</a></li>

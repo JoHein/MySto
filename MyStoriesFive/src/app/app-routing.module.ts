@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { PanelUserComponent } from './panel-user/panel-user.component';
 import { PanelAdminComponent } from './panel-admin/panel-admin.component';
+import { ArticleComponent } from './article/article.component';
 
 const appRoutes: Routes = [
   {
@@ -13,6 +14,7 @@ const appRoutes: Routes = [
   { path: 'register',  component: RegisterComponent  },
   { path: 'panelUser', component: PanelUserComponent},
   { path: 'panelAdmin', component: PanelAdminComponent},
+  { path: 'writearticle', component: ArticleComponent},
 
   { path: '',   redirectTo: '/home', pathMatch: 'full' }
 

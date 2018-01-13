@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../article/article.service';
 import { ArticleModel } from '../article/acticle.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-panel-user',
@@ -11,7 +12,7 @@ export class PanelUserComponent implements OnInit {
 
   listArticle: any[];
 
-  constructor(private articleService: ArticleService) { }
+  constructor(public router: Router, private articleService: ArticleService) { }
 
   getArticlesUser(): void {
       const emailuser = localStorage.getItem('emailuser');
@@ -43,6 +44,10 @@ export class PanelUserComponent implements OnInit {
 
   ngOnInit() {
       this.getArticlesUser();
+  }
+
+  writeOpen(): void {
+    this.router.navigate(['/writearticle']);
   }
 
 }
