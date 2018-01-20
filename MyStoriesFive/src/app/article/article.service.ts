@@ -5,12 +5,17 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ArticleModel } from '../article/acticle.model';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class ArticleService {
 
   constructor(private http: HttpClient) { }
 
   private urlAllArticleUser = 'http://localhost:8081/getListArticle';
+  private urlSaveArticle = 'http://localhost:8081/saveArticle';
 
 
 listAllArticleUser(emailuser): Observable<any> {
@@ -19,6 +24,14 @@ listAllArticleUser(emailuser): Observable<any> {
     .pipe(
       catchError( this.handleError<any>('listAllArticleUser'))
     );
+}
+
+saveArticle(emailuser: string, article: ArticleModel): Observable<any> {
+  return this.http.post( this.urlSaveArticle, {'emailuser': emailuser, 'article': article }, httpOptions )
+  .pipe(
+    tap(() => console.log(`added article w/ id=${article.title}`)),
+    catchError(this.handleError<any>('saveArticle'))
+  );
 }
 
 private handleError<T> (operation = 'operation', result?: T) {

@@ -5,11 +5,11 @@
       <p>Comment stocker les images (imgur?)</p>
       <button (click)="goBack()">Revenir</button>
       <form id="formcontainer">
-          <label>Catégorie<input type="search" ng-model="article.category" /></label><br />
-          <label>Titre <input type="text" ng-model="article.title" /></label><br />
-          <textarea  rows="4" cols="50" ng-model="article.content" placeholder="Votre texte"> </textarea><br />
-          <label>Sources <input type="text" ng-model="article.source"/></label><br />
-          <input type="submit" ng-click="soumettre(article)" value="Soumettre"/>
+          <label>Catégorie<input type="search" [(ngModel)]="category" name="category"/></label><br />
+          <label>Titre <input type="text" [(ngModel)]="title" name="title" /></label><br />
+          <textarea  rows="4" cols="50" [(ngModel)]="content" name="content" placeholder="Votre texte"> </textarea><br />
+          <label>Sources <input type="text" [(ngModel)]="source" name="source" /></label><br />
+          <input type="submit" (click)="submitArticle()" value="Soumettre"/>
       </form>
   </div>
 </section>

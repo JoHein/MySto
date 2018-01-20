@@ -389,18 +389,19 @@ app.post('/saveArticle',function(req,res){
             
             Subscriber.findOne({'email':mongoSanitize.sanitize(req.body.emailuser)},function(err,person){
                 console.log('person ' + person);
+                console.log('REQ BODY :: ', req.body.article);
 
                 if(person){
                   iduser=person._id;
-                  console.log('ID' + iduser);
+                  console.log('ID :: ' + iduser);
 
                             var newArticle= new Article({
                             moderation : false,
-                            title : mongoSanitize.sanitize(req.body.title),
-                            content : mongoSanitize.sanitize(req.body.content),
-                            source : mongoSanitize.sanitize(req.body.source),
+                            title : mongoSanitize.sanitize(req.body.article.title),
+                            content : mongoSanitize.sanitize(req.body.article.content),
+                            source : mongoSanitize.sanitize(req.body.article.source),
                             created : new Date(),
-                            category : mongoSanitize.sanitize(req.body.category),
+                            category : mongoSanitize.sanitize(req.body.article.category),
                             postedBy : iduser,
 
                             tracker: {
@@ -411,6 +412,10 @@ app.post('/saveArticle',function(req,res){
                         });
 
                         newArticle.save(function(err,data){
+                            console.log('In article mongo save :: ', data);
+                            if (err) { 
+                                return console.error(err);
+                            }
                             if(data){
                                return res.json({'reponseSauvegarde':'Votre article a été soumis à modération'});
                             }else{
