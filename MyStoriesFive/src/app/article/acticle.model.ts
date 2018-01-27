@@ -9,6 +9,7 @@ export class ArticleModel {
     public stars: number,
     public source?: Array<string>[],
     public created?: any,
+    public _id?: any,
   ) {  }
 
 }

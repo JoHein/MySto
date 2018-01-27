@@ -9,7 +9,7 @@ var request = require('request');
 var mongoSanitize = require('express-mongo-sanitize');
 var nodemailer = require('nodemailer');
 var bcrypt = require('bcryptjs');
-
+var cors = require('cors');
 
 //Logger
 var morgan = require('morgan');
@@ -35,6 +35,7 @@ var Article = require('./models/article');
 app.set('view engine', 'ejs', 'html');
 app.set('views', '../appWeb/scripts');
 app.set('port', process.env.PORT || 8081);
+app.use(cors())
 
 app.use(bodyParser.json({type: 'application/json'}));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -56,11 +57,7 @@ logger.info('server start');
 
 //console.log(__dirname);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+
 
 
 app.use(session({
@@ -92,8 +89,6 @@ app.use(function(req, res, next) {
   }
 
 });
-
-
 
 
 app.get('/', function (req, res) {
@@ -433,14 +428,15 @@ app.post('/saveArticle',function(req,res){
 
 });
 
-app.delete('/getListArticle',function(req,res){
-    Article.findByIdAndRemove(req.query._id, function(err,article){
+app.delete('/getListArticle/:id',function(req,res){
+
+    Article.findByIdAndRemove(req.params.id, function(err,article){
         if(err){
             console.log("Error delete");
             console.log(err);
-          return res.json({'responseDelete':'Erreur lors de la suppression '});
+          return res.json({'responseDeleteError':'Erreur lors de la suppression '});
         }
-        return res.json({'responseDelete':'Votre article '+ article.title  +' a été supprimé'});
+        return res.json({'responseDeleteSuccess':'Votre article '+ article.title  +' a été supprimé'});
     });
     
 });

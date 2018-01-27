@@ -51,10 +51,16 @@
                     <td>{{item.created}}</td>
                     <td>{{item.stars}}</td>
 
-                    <td style="width:5em"><mat-icon (click) ="writeOpen(item)" class="s24" svgIcon="../images/ic_mode_edit_black_24px.svg"></mat-icon></td>
+                    <td style="width:5em">
+                        <mat-icon (click)="writeOpen(item)" class="s24">
+                            <img src="../../assets/images/ic_mode_edit_black_24px.svg"/>
+                        </mat-icon>
+                    </td>
                     <td>{{item.moderation}}</td>
                     <td style="width:5em">
-                        <mat-icon (click) ="deleteArticle(item)" style="height: 0.5em; width: 0.5em;" svgIcon="../images/ic_delete_forever_black_24px.svg"></mat-icon>
+                        <mat-icon (click)="deleteArticle(item)" style="height: 0.5em; width: 0.5em;">
+                            <img src="../../assets/images/ic_delete_forever_black_24px.svg"/>
+                        </mat-icon>
                     </td>
 
                 </tr>

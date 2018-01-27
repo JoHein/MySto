@@ -34,6 +34,16 @@ saveArticle(emailuser: string, article: ArticleModel): Observable<any> {
   );
 }
 
+deleteArticle(article: ArticleModel): Observable<any> {
+  console.log('url delete article :: ', article);
+  const url = `${this.urlAllArticleUser}/${article._id}`;
+  return this.http.delete(url, httpOptions)
+  .pipe(
+    tap(() => console.log(`delete article w/ id=${article._id}`)),
+    catchError(this.handleError<any>('deleteArticle'))
+  );
+}
+
 private handleError<T> (operation = 'operation', result?: T) {
   return (error: any): Observable<T> => {
 

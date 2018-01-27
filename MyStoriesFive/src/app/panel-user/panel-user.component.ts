@@ -50,4 +50,14 @@ export class PanelUserComponent implements OnInit {
     this.router.navigate(['/writearticle']);
   }
 
+  deleteArticle(article: ArticleModel): void {
+    this.articleService.deleteArticle(article)
+    .subscribe(result => {
+      console.log('result delete', result);
+      if (result.responseDeleteSuccess) {
+        this.listArticle = this.listArticle.filter( list => list._id !== article._id);
+      }
+    });
+  }
+
 }
